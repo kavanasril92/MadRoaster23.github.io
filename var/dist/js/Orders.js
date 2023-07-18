@@ -3,11 +3,22 @@ $( document ).ready(function() {
 	  var outletVar = $(".outlet-select").find(":selected").val();
 	  
 	  if ( outletVar == "" || typeof outletVar == "undefined" ) {
-		alert("Please input outlet");
-		$(".outlet-select").focus();
-		event.preventDefault();		  
+			alert("Please input outlet");
+			$(".outlet-select").focus();
+			event.preventDefault();		  
 	  }
 	});
+	
+	var d = new Date(new Date().getTime()+(24*60*60*1000));
+
+	var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+	var date = d.getDate();
+	var month = d.getMonth();
+	var year = d.getFullYear();
+	var monthArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+	var tomorrowsDate = date + " " + monthArray[month] + " " + year;
+	
+	$("#Tomorrows-Date").text("Order for " + date + " " + monthArray[month] + " " + year);
 	
 	$(".outlet-select").on("change", function( event ) {
 	  if ( $(this).val() == "Amoy" ) {
