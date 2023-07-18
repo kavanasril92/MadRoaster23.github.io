@@ -22,14 +22,26 @@
         <!-- <h4 class="mb-3">Billing address</h4> -->
         <form class="needs-validation" novalidate="" id="ordersForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfabed9hc_xcV6e_Rm3dwJBJ_hrUXCGPd6M1Jl6Gb3-OfG-9A/formResponse">
           <div class="row g-3">
-			<div class="col-sm-12">
+			<div class="col-sm-12" style="text-align:center;">
+			  <input type="radio" class="btn-check" name="options-outlined" id="daily-small-orders-outlined" autocomplete="off">
+			  <label class="btn btn-outline-dark" for="daily-small-orders-outlined" id="daily-small-orders-outlined-label">Daily Small Orders</label>
+
+			  <input type="radio" class="btn-check" name="options-outlined" id="big-orders-outlined" autocomplete="off">
+			  <label class="btn btn-outline-dark" for="big-orders-outlined">Big Orders</label>
+				<hr class="my-4">
+			</div>
+			<div class="col-sm-12" id="Outlet-Section" style="display:none">
 			  <select class="form-select outlet-select" aria-label="Default select example" name="entry.226259794" id="entry.226259794" required>
 				  <option selected value="" disabled>Select Outlet</option>
 				  <option value="Amoy">Amoy</option>
 				  <option value="RWS">RWS</option>
 				</select>
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12" id="Whole-Form" style="display:none">
+				</br>
+				<h4 style="text-align:center">Daily Small Order Section</h4>
+				</br>
+					
 				<div class="accordion" id="accordionFlushExample">
 				  <div class="accordion-item">
 					<h2 class="accordion-header">
@@ -90,6 +102,83 @@
 						</div>
 					</div>
 				  </div>
+					
+					<div class="accordion-item">
+					<h2 class="accordion-header">
+					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+						<div class="accordion-custom-div"><b>Food</b></div>
+					  </button>
+					</h2>
+					<div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					  <div class="accordion-body">
+							  <label for="entry.1676772614" class="form-label">Coriander</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.1676772614" id="entry.1676772614" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+					  </div>
+					</div>
+				  </div>
+					
+					<div class="accordion-item" id="Amoy_Accordion">
+					<h2 class="accordion-header">
+					  <button id="flush-collapseSixAmoy" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+						<div class="accordion-custom-div"><b>Amoy Only</b>&nbsp(Optional)</div>
+					  </button>
+					</h2>
+					<div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					  <div class="accordion-body">
+							  <label for="entry.431918463" class="form-label">OG Toast</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.431918463" id="entry.431918463" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+							  
+							  </br>
+							  
+							  <label for="entry.888564982" class="form-label">Kimchi Toast</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.888564982" id="entry.888564982" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+							  
+							  </br>
+							  
+							  <label for="entry.1941491592" class="form-label">Kaya (Tub)</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.1941491592" id="entry.1941491592" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+							  
+					  </div>
+					</div>
+				  </div>
+					
+					<div class="accordion-item" id="RWS_Accordion">
+					<h2 class="accordion-header">
+					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+						<div class="accordion-custom-div"><b>RWS Only</b>&nbsp(Optional)</div></b>
+					  </button>
+					</h2>
+					<div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					  <div class="accordion-body">
+							  <label for="entry.2107447273" class="form-label">Avocado</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.2107447273" id="entry.2107447273" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+					  </div>
+					</div>
+				  </div>
+					
+					
+					<div id="Big-Order-Section" style="display:none">
+					<hr class="my-4">
+					
+						<h3 style="text-align:center">Big Order Section</h3>
+					
+					</br>
+					
 				  <div class="accordion-item">
 					<h2 class="accordion-header">
 					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
@@ -222,77 +311,20 @@
 				  
 				  <div class="accordion-item">
 					<h2 class="accordion-header">
-					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-						<div class="accordion-custom-div"><b>Food</b></div>
-					  </button>
-					</h2>
-					<div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-					  <div class="accordion-body">
-							  <label for="entry.735125027" class="form-label">Crumble</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.735125027" id="entry.735125027" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.73087793" class="form-label">Custard (Tub)</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.73087793" id="entry.73087793" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.1080367893" class="form-label">White Sugar</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1080367893" id="entry.1080367893" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.1630769547" class="form-label">Chips (Bag)</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1630769547" id="entry.1630769547" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.1695600524" class="form-label">Butter Slabs</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1695600524" id="entry.1695600524" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.1676772614" class="form-label">Coriander</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1676772614" id="entry.1676772614" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.14086462" class="form-label">Cheddar Cheese</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.14086462" id="entry.14086462" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-					  </div>
-					</div>
-				  </div>
-				  
-				  <div class="accordion-item">
-					<h2 class="accordion-header">
 					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-						<div class="accordion-custom-div"><b>Drinks</b></div>
+						<div class="accordion-custom-div"><b>ETC</b></div>
 					  </button>
 					</h2>
 					<div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 					  <div class="accordion-body">
+							  <label for="entry.600314914" class="form-label">Eggs</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.600314914" id="entry.600314914" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+								
+								</br>
+								
 							  <label for="entry.1995794218" class="form-label">Oat Milk (Carton)</label>
 							  <input type="number" pattern="\d*" class="form-control" name="entry.1995794218" id="entry.1995794218" placeholder="" value="" required="" min="0">
 							  <div class="invalid-feedback">
@@ -362,75 +394,88 @@
 							  <div class="invalid-feedback">
 								Valid value is required.
 							  </div>
-					  </div>
-					</div>
-				  </div>
-				  
-				  <div class="accordion-item" id="Amoy_Accordion">
-					<h2 class="accordion-header">
-					  <button id="flush-collapseSixAmoy" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-						<div class="accordion-custom-div"><b>Amoy Only</b>&nbsp(Optional)</div>
-					  </button>
-					</h2>
-					<div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-					  <div class="accordion-body">
-							  <label for="entry.431918463" class="form-label">OG Toast</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.431918463" id="entry.431918463" placeholder="" value="" required="" min="0">
+								
+								</br>
+								
+								<label for="entry.1080367893" class="form-label">White Sugar</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.1080367893" id="entry.1080367893" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+							  
+							  </br>
+								
+							  <label for="entry.735125027" class="form-label">Crumble</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.735125027" id="entry.735125027" placeholder="" value="" required="" min="0">
 							  <div class="invalid-feedback">
 								Valid value is required.
 							  </div>
 							  
 							  </br>
 							  
-							  <label for="entry.888564982" class="form-label">Kimchi Toast</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.888564982" id="entry.888564982" placeholder="" value="" required="" min="0">
+							  <label for="entry.73087793" class="form-label">Custard (Tub)</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.73087793" id="entry.73087793" placeholder="" value="" required="" min="0">
 							  <div class="invalid-feedback">
 								Valid value is required.
 							  </div>
 							  
 							  </br>
 							  
-							  <label for="entry.1941491592" class="form-label">Kaya (Tub)</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1941491592" id="entry.1941491592" placeholder="" value="" required="" min="0">
+							  <label for="entry.1630769547" class="form-label">Chips (Bag)</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.1630769547" id="entry.1630769547" placeholder="" value="" required="" min="0">
 							  <div class="invalid-feedback">
 								Valid value is required.
 							  </div>
 							  
-					  </div>
-					</div>
-				  </div>
-				  
-				  <div class="accordion-item" id="RWS_Accordion">
-					<h2 class="accordion-header">
-					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-						<div class="accordion-custom-div"><b>RWS Only</b>&nbsp(Optional)</div></b>
-					  </button>
-					</h2>
-					<div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-					  <div class="accordion-body">
-							  <label for="entry.1893476163" class="form-label">Kaya (Packet)</label>
+							  </br>
+							  
+							  <label for="entry.1695600524" class="form-label">Butter Slabs</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.1695600524" id="entry.1695600524" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+							  
+							  </br>
+								
+								<label for="entry.1893476163" class="form-label">Kaya (Packet)</label>
 							  <input type="number" pattern="\d*" class="form-control" name="entry.1893476163" id="entry.1893476163" placeholder="" value="" required="" min="0">
 							  <div class="invalid-feedback">
 								Valid value is required.
 							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.2107447273" class="form-label">Avocado</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.2107447273" id="entry.2107447273" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
 					  </div>
 					</div>
 				  </div>
+					</div>
+					
+					<hr class="my-4">
+					
+					<div id="Others-Section" style="display:none">
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+								<div class="accordion-custom-div"><b>Others</b></div>
+								</button>
+							</h2>
+							<div id="flush-collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+								<div class="accordion-body">
+										<label for="entry.1591374070" class="form-label">Comments</label>
+										<input type="text" class="form-control input-lg" name="entry.1591374070" id="entry.1591374070" placeholder="" value="" required="">
+										<div class="invalid-feedback">
+										Valid value is required.
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
 				</div>
 			</div>
 
             
           <hr class="my-4">
 
-          <button class="w-100 btn btn-dark btn-lg" type="submit">Submit Order</button>
+          <button class="w-100 btn btn-dark btn-lg" id="Submit-Form-Button" style="display:none" type="submit">Submit Order</button>
         </form>
       </div>
     </div>
@@ -451,6 +496,11 @@
 		.accordion-custom-div {
 			font-size: 18px
 		}
+		
+		<!-- #daily-small-orders-outlined-label:hover { -->
+			<!-- background-color:grey; -->
+			<!-- color: white; -->
+		<!-- } -->
 	</style>
 	
 	<script src="var/dist/js/jquery-3.7.0.min.js"></script>
