@@ -1,0 +1,16 @@
+Setup:
+cd backend
+python -m venv venv
+venv\Scripts\activate.bat 
+pip install -r requirements.txt
+
+To Start App Locally:
+uvicorn app:app --reload
+
+
+For GitHub Push:
+// One Time Config
+git config --global user.email "kavanasril@hotmail.com"
+git config --global user.name "Kavan Lee"
+// Add Remote URL
+git remote add origin https://github.com/kavanasril92/MadRoaster23.github.io.git
