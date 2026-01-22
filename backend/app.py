@@ -29,6 +29,7 @@ print("FRONTEND_DIR_JS:", FRONTEND_DIR_JS)
 print("FRONTEND_DIR_JS exists:", FRONTEND_DIR_JS.exists())
 print("FRONTEND_DIR_VAR:", FRONTEND_DIR_VAR)
 print("FRONTEND_DIR_VAR exists:", FRONTEND_DIR_VAR.exists())
+print("FRONTEND_DIR_VAR /dist/js exists:", (FRONTEND_DIR_VAR / "dist/js").exists())
 print("FRONTEND_DIR_CUSTOM:", FRONTEND_DIR_CUSTOM)
 print("FRONTEND_DIR_CUSTOM exists:", FRONTEND_DIR_CUSTOM.exists())
 
