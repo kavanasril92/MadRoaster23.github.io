@@ -9,7 +9,7 @@ app = FastAPI()
 PROJECT_DIR = Path(__file__).resolve().parent
 # PROJECT_DIR = Path.cwd()
 BACKEND_DIR = PROJECT_DIR.parent
-FRONTEND_DIR = BACKEND_DIR / "frontend"
+FRONTEND_DIR = PROJECT_DIR / "frontend"
 INDEX_FILE = FRONTEND_DIR / "index.html"
 
 print("CWD:", Path.cwd())
