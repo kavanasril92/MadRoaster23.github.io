@@ -14,6 +14,7 @@ app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="asset
 app.mount("/js", StaticFiles(directory=FRONTEND_DIR / "js"), name="js")
 app.mount("/var", StaticFiles(directory=FRONTEND_DIR / "var"), name="var")
 app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR / "Custom"), name="Custom")
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
 
 # Root → index.html
 @app.get("/")
