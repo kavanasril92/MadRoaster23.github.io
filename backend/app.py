@@ -6,8 +6,8 @@ from pathlib import Path
 
 app = FastAPI()
 
-BACKEND_DIR = Path(__file__).resolve().parent
-PROJECT_DIR = BACKEND_DIR.parent
+PROJECT_DIR = Path(__file__).resolve()
+BACKEND_DIR = PROJECT_DIR.parent
 FRONTEND_DIR = PROJECT_DIR / "frontend"
 
 print("CWD:", Path.cwd())
