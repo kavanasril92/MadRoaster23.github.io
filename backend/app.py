@@ -6,15 +6,19 @@ from pathlib import Path
 
 app = FastAPI()
 
+BACKEND_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = BACKEND_DIR.parent
+FRONTEND_DIR = PROJECT_DIR / "frontend"
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
 # Serve frontend assets (css, js, images)
-app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="assets")
-app.mount("/js", StaticFiles(directory=FRONTEND_DIR / "js"), name="js")
-app.mount("/var", StaticFiles(directory=FRONTEND_DIR / "var"), name="var")
-app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR / "Custom"), name="Custom")
-app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
+if FRONTEND_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="assets")
+    app.mount("/js", StaticFiles(directory=FRONTEND_DIR / "js"), name="js")
+    app.mount("/var", StaticFiles(directory=FRONTEND_DIR / "var"), name="var")
+    app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR / "Custom"), name="Custom")
 
 # Root → index.html
 @app.get("/")
