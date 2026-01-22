@@ -14,6 +14,8 @@ INDEX_FILE = FRONTEND_DIR / "index.html"
 
 print("CWD:", Path.cwd())
 print("PROJECT_ROOT:", PROJECT_DIR)
+print("BACKEND_DIR:", BACKEND_DIR)
+print("FRONTEND_DIR:", FRONTEND_DIR)
 print("FRONTEND_DIR exists:", FRONTEND_DIR.exists())
 print("INDEX_FILE:", INDEX_FILE)
 print("INDEX_FILE exists:", INDEX_FILE.exists())
