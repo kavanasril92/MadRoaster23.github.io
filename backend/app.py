@@ -39,7 +39,7 @@ FRONTEND_DIR = BASE_DIR / "frontend"
 # Serve frontend assets (css, js, images)
 if FRONTEND_DIR.exists():
     app.mount("/assets", StaticFiles(directory=FRONTEND_DIR_ASSETS), name="assets")
-    app.mount("/js", StaticFiles(directory=FRONTEND_DIR_JS), name="js")
+    # app.mount("/js", StaticFiles(directory=FRONTEND_DIR_JS), name="js")
     app.mount("/var", StaticFiles(directory=FRONTEND_DIR_VAR), name="var")
     app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR_CUSTOM), name="Custom")
 
