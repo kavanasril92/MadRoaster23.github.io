@@ -11,6 +11,10 @@ PROJECT_DIR = Path(__file__).resolve().parent
 BACKEND_DIR = PROJECT_DIR.parent
 FRONTEND_DIR = PROJECT_DIR / "frontend"
 INDEX_FILE = FRONTEND_DIR / "index.html"
+FRONTEND_DIR_ASSETS = FRONTEND_DIR / "assets"
+FRONTEND_DIR_JS = FRONTEND_DIR / "js"
+FRONTEND_DIR_VAR = FRONTEND_DIR / "var"
+FRONTEND_DIR_CUSTOM = FRONTEND_DIR / "Custom"
 
 print("CWD:", Path.cwd())
 print("PROJECT_ROOT:", PROJECT_DIR)
@@ -19,16 +23,24 @@ print("FRONTEND_DIR:", FRONTEND_DIR)
 print("FRONTEND_DIR exists:", FRONTEND_DIR.exists())
 print("INDEX_FILE:", INDEX_FILE)
 print("INDEX_FILE exists:", INDEX_FILE.exists())
+print("FRONTEND_DIR_ASSETS:", FRONTEND_DIR_ASSETS)
+print("FRONTEND_DIR_ASSETS exists:", FRONTEND_DIR_ASSETS.exists())
+print("FRONTEND_DIR_JS:", FRONTEND_DIR_JS)
+print("FRONTEND_DIR_JS exists:", FRONTEND_DIR_JS.exists())
+print("FRONTEND_DIR_VAR:", FRONTEND_DIR_VAR)
+print("FRONTEND_DIR_VAR exists:", FRONTEND_DIR_VAR.exists())
+print("FRONTEND_DIR_CUSTOM:", FRONTEND_DIR_CUSTOM)
+print("FRONTEND_DIR_CUSTOM exists:", FRONTEND_DIR_CUSTOM.exists())
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
 # Serve frontend assets (css, js, images)
 if FRONTEND_DIR.exists():
-    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="assets")
-    app.mount("/js", StaticFiles(directory=FRONTEND_DIR / "js"), name="js")
-    app.mount("/var", StaticFiles(directory=FRONTEND_DIR / "var"), name="var")
-    app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR / "Custom"), name="Custom")
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR_ASSETS), name="assets")
+    app.mount("/js", StaticFiles(directory=FRONTEND_DIR_JS), name="js")
+    app.mount("/var", StaticFiles(directory=FRONTEND_DIR_VAR), name="var")
+    app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR_CUSTOM), name="Custom")
 
 # Root → index.html
 @app.get("/")
