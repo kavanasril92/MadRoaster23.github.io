@@ -10,6 +10,10 @@ BACKEND_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BACKEND_DIR.parent
 FRONTEND_DIR = PROJECT_DIR / "frontend"
 
+print("CWD:", Path.cwd())
+print("PROJECT_ROOT:", PROJECT_DIR)
+print("FRONTEND_DIR exists:", FRONTEND_DIR.exists())
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
