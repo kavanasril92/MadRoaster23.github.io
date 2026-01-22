@@ -5,6 +5,7 @@ venv\Scripts\activate.bat
 pip install -r requirements.txt
 
 To Start App Locally:
+backend\venv\Scripts\activate.bat 
 uvicorn app:app --reload
 
 
@@ -14,3 +15,6 @@ git config --global user.email "kavanasril@hotmail.com"
 git config --global user.name "Kavan Lee"
 // Add Remote URL
 git remote add origin https://github.com/kavanasril92/MadRoaster23.github.io.git
+git add .
+git commit -m 'Comment'
+git push origin <branch name>
