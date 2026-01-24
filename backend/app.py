@@ -3,10 +3,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
+load_dotenv()
 
-PROJECT_DIR = Path(__file__).resolve().parent
+env_var = os.getenv("ENV")
+
+print(os.getenv("ENV"))
+
+PROJECT_ENV = os.getenv("ENV");
+if PROJECT_ENV == 'local':
+    PROJECT_DIR = Path(__file__).resolve().parent.parent
+elif PROJECT_ENV == 'production':
+    PROJECT_DIR = Path(__file__).resolve().parent
+    
+
+# PROJECT_DIR = Path(__file__).resolve().parent.parent if env_var == 'local' else Path(__file__).resolve().parent
 # PROJECT_DIR = Path.cwd()
 BACKEND_DIR = PROJECT_DIR.parent
 FRONTEND_DIR = PROJECT_DIR / "frontend"
