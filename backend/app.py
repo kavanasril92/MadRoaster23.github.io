@@ -13,10 +13,12 @@ env_var = os.getenv("ENV")
 
 print(os.getenv("ENV"))
 
-PROJECT_ENV = os.getenv("ENV");
+PROJECT_ENV = os.getenv("ENV")
+## Default path to Koyeb Environment
+PROJECT_DIR = Path(__file__).resolve().parent
 if PROJECT_ENV == 'local':
     PROJECT_DIR = Path(__file__).resolve().parent.parent
-elif PROJECT_ENV == 'production':
+elif PROJECT_ENV == 'koyeb.production':
     PROJECT_DIR = Path(__file__).resolve().parent
     
 
