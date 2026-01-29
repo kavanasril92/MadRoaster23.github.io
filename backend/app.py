@@ -110,6 +110,8 @@ def get_sheet_data():
         "universe_domain": "googleapis.com"
     }
     
+    gcred_json["private_key"] = gcred_json["private_key"].replace("\\n", "\n")
+    
     # Scope for Google Sheets
     # SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
     SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
