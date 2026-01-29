@@ -23,6 +23,13 @@ googleclientx509certurl = os.getenv("google_client_x509_cert_url")
 googlesheetmr = os.getenv("google_sheet_madroaster")
 
 print(os.getenv("ENV"))
+print("google_client_email: ", googleclientemail)
+print("google_client_email: ", googleclientid)
+print("google_client_x509_cert_url: ", googleclientx509certurl)
+print("google_private_key: ", googleprivatekey)
+print("google_private_key_id: ", googleprivatekeyid)
+print("google_project_id: ", googleprojectid)
+print("google_sheet_madroaster: ", googlesheetmr)
 
 
 
@@ -136,8 +143,6 @@ def get_sheet_data():
         outlet = record["Which outlet are you from?"]
         uniqueIdentifer = record["Unique Identifier"]
         
-        print(outlet)
-
         if orderDate not in sheet_data_transformed:
             sheet_data_transformed[orderDate] = {}
             
