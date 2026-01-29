@@ -2,3 +2,6 @@ fastapi
 uvicorn
 python-dotenv
 google-api-python-client
+gspread
+google-auth
+pandas

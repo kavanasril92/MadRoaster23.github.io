@@ -6,7 +6,8 @@ pip install -r requirements.txt
 
 To Start App Locally:
 backend\venv\Scripts\activate.bat 
-uvicorn app:app --reload
+uvicorn backend.app:app --reload
+
 
 
 For GitHub Push:
@@ -18,3 +19,10 @@ git remote add origin https://github.com/kavanasril92/MadRoaster23.github.io.git
 git add .
 git commit -m 'Comment'
 git push origin <branch name>
+
+
+For Domain Name - To renew Domain Name Yearly (Registered around 20 Jan 2026): 
+https://dash.domain.digitalplat.org/panel/main?page=%2Fpanel%2Fmanager%2Fmadroaster.qzz.io
+
+For Hosting the domain, use Cloudflare:
+https://dash.cloudflare.com/8cc345a5f6376a7c5185a1aa5c81f1af/madroaster.qzz.io/dns/records?recordsSearchSearch=madroaster.qzz.io
