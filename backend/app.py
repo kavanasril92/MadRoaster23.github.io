@@ -197,6 +197,10 @@ def ordersubmitted_page():
 
     return FileResponse(ORDERSUBMITTED_PAGE)
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 def make_headers_unique(headers):
     seen = {}
     new_headers = []
