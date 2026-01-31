@@ -312,6 +312,8 @@ $( document ).ready(function() {
 					orderInputOrder.push(inputKey);
 				} else if ( inputKey === "Butter KG" ) {
 					orderInputOrder.push("Butter KG_2");
+				} else if ( inputKey === "CB Bottles (Pieces)" ) {
+					orderInputOrder.push("CB Bottle (Pieces)");
 				}
 			}
 		});
