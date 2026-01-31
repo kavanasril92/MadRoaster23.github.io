@@ -23,13 +23,13 @@ googleclientx509certurl = os.getenv("google_client_x509_cert_url")
 googlesheetmr = os.getenv("google_sheet_madroaster")
 
 print(os.getenv("ENV"))
-print("google_client_email: ", googleclientemail)
-print("google_client_email: ", googleclientid)
-print("google_client_x509_cert_url: ", googleclientx509certurl)
-print("google_private_key: ", googleprivatekey)
-print("google_private_key_id: ", googleprivatekeyid)
-print("google_project_id: ", googleprojectid)
-print("google_sheet_madroaster: ", googlesheetmr)
+# print("google_client_email: ", googleclientemail)
+# print("google_client_email: ", googleclientid)
+# print("google_client_x509_cert_url: ", googleclientx509certurl)
+# print("google_private_key: ", googleprivatekey)
+# print("google_private_key_id: ", googleprivatekeyid)
+# print("google_project_id: ", googleprojectid)
+# print("google_sheet_madroaster: ", googlesheetmr)
 
 
 
@@ -79,10 +79,12 @@ FRONTEND_DIR_CUSTOM = FRONTEND_DIR / "Custom"
 
 # Serve frontend assets (css, js, images)
 if FRONTEND_DIR.exists():
-    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR_ASSETS), name="assets")
+    ## Modified by KL on 20260131 - To remove caching of JS file when deploying on Koyeb
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR_ASSETS, html=True), name="assets")
     # app.mount("/js", StaticFiles(directory=FRONTEND_DIR_JS), name="js")
-    app.mount("/var", StaticFiles(directory=FRONTEND_DIR_VAR), name="var")
-    app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR_CUSTOM), name="Custom")
+    ## Modified by KL on 20260131 - To remove caching of JS file when deploying on Koyeb
+    app.mount("/var", StaticFiles(directory=FRONTEND_DIR_VAR, html=True), name="var")
+    app.mount("/Custom", StaticFiles(directory=FRONTEND_DIR_CUSTOM, html=True), name="Custom")
 
 # Root → index.html
 @app.get("/")
@@ -200,6 +202,14 @@ def ordersubmitted_page():
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+## Added by KL on 20260131 - To remove caching of JS file when deploying on Koyeb
+@app.middleware("http")
+async def no_cache_static(request, call_next):
+    response = await call_next(request)
+    if request.url.path.endswith(".js"):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    return response
 
 def make_headers_unique(headers):
     seen = {}
