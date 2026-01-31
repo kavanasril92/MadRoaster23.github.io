@@ -265,6 +265,15 @@ $( document ).ready(function() {
 		})
 	})
 
+	// Added by KL on 20260130 - Calculate width before modal is visible
+	const modalStatic1 = document.getElementById('sheet-datatable');
+	// let modalDialog1 = coreui.Modal.getOrCreateInstance(modalStatic1);
+
+	modalStatic1.addEventListener('shown.coreui.modal', function () {
+		dataTable.refresh();
+		updateStickyOffsets();
+	});
+
 	fetch("/sheet")
   .then(res => res.json())
   .then(data => {
@@ -272,7 +281,8 @@ $( document ).ready(function() {
     const tableEl = document.getElementById("ordersTable");
 
 		// Define the order you want
-		const firstColumns = ["OrderDate", "Which outlet are you from?","Reorder"]; // columns to appear first
+		// Modified by KL on 20260130 - Order the Datatable to the input form
+		const firstColumns = ["OrderDate", "Which outlet are you from?","Reorder", "Order ID", "Timestamp"]; // columns to appear first
 		const remainingColumns = keys.filter(k => !firstColumns.includes(k));
 
 		const IGNORE_COLUMNS = new Set([
@@ -284,8 +294,35 @@ $( document ).ready(function() {
 
 		const visibleKeys = remainingColumns.filter(k => !IGNORE_COLUMNS.has(k));
 
+		// Modified by KL on 20260130 - Order the Datatable to the input form
+		// Get the order of input label in the form
+		let orderInputOrder = [];
+		$(`#ordersForm input`).each(function () {
+
+			const $input = $(this);
+
+			// find the associated label (label[for="input_id"])
+			const inputId = $input.attr('id');
+			const $label = $(`label[for="${inputId}"]`);
+			const inputKey = $label[0]?.textContent;
+			if ((inputKey !== null && inputKey !== undefined) ) {
+				if ( 
+					visibleKeys.includes(inputKey) 
+				) {
+					orderInputOrder.push(inputKey);
+				} else if ( inputKey === "Butter KG" ) {
+					orderInputOrder.push("Butter KG_2");
+				}
+			}
+		});
+		
+		const keyArray = [
+			...orderInputOrder,
+			...visibleKeys.filter(x => !orderInputOrder.includes(x))
+		]
+
 		// New ordered keys
-		const finalkeys = [...firstColumns, ...visibleKeys];
+		const finalkeys = [...firstColumns, ...keyArray];
 
 		// const headers = [...new Set(data.flatMap(Object.keys))];
 		const timestampIndex = finalkeys.indexOf("Timestamp");
@@ -339,19 +376,23 @@ $( document ).ready(function() {
 								const [day, month, year] = value.split('-');
 								// const sortDate = `${year}-${month}-${day}`;     // convert for sorting
 								const orderDate = `${year}${month}${day}`
+								// Modified by KL on 20260130 - Transforming date to dd-mm-yy
+								var yearDoubleDigit = year.slice(2);
+								var displayDateTransformed = `${day}-${month}-${yearDoubleDigit}`;
 
 								return `
 									<td data-type="date" data-order="${orderDate}" style="white-space:nowrap">
-										${displayDate}
+										${displayDateTransformed}
 									</td>
 								`;
 							}
 
 							// Reorder: Make Button
+							// Modified by KL on 20260130 - Resize button for Mobile & align button to center of td
 							if (k === "Reorder") {
 								return `
-									<td>
-										<button type="button" class="btn btn-light rounded-pill" onclick="ReorderPopulate(this)"><span class="cil-contrast"></span>Reorder</button>
+									<td style="text-align:center">
+										<button type="button" class="btn btn-light rounded-pill btn-tight" onclick="ReorderPopulate(this)"><span class="cil-contrast"></span>Reorder</button>
 									</td>
 								`;
 							}
@@ -382,7 +423,8 @@ $( document ).ready(function() {
 				placeholder: "Search Orders...",
 				searchTitle: "Search within table",
 				pageTitle: "Page {page}",
-				perPage: "orders per page",
+				// Added by KL on 20260130 - Make Modal datatable more easily readible on Mobile
+				perPage: "per page",
 				noRows: "No entries found",
 				info: "Showing {start} to {end} of {rows} entries",
 				noResults: "No orders match your search query",
@@ -400,12 +442,16 @@ $( document ).ready(function() {
 			const method = 'update';
 			const pg = 1;
 			toggleColumnsMatched(dataTable, method, pg)
+			// Modified by KL on 20260130 - Sticky 2 Columns
+			updateStickyOffsets();
 		});
 
 		dataTable.on('datatable.page', function(page) {
 			const method = 'update';
 			const pg = page;
 			toggleColumnsMatched(dataTable, method, pg)
+			// Modified by KL on 20260130 - Sticky 2 Columns
+			updateStickyOffsets();
 		});
 
 		dataTable.on('datatable.init', () => {
@@ -414,8 +460,14 @@ $( document ).ready(function() {
 			const method = 'init';
 			const pg = 1;
 			toggleColumnsMatched(dataTable, method, pg)
+			// Modified by KL on 20260130 - Sticky 2 Columns
+			updateStickyOffsets();
 		})
 
+		// Modified by KL on 20260130 - Sticky 2 Columns
+		updateStickyOffsets();
+
+		window.addEventListener('resize', updateStickyOffsets);
   });
 
 	$("#accordionFlushExample").on('change', 'input', function(e){
@@ -969,6 +1021,18 @@ function showAlertModal(message, title = 'Alert') {
     modalEl.addEventListener('hidden.coreui.modal', function () {
         $(this).remove();
     });
+}
+
+// Added by KL on 20260130 - Sticky 2nd Column
+function updateStickyOffsets() {
+  const table = document.querySelector('.datatable-table')
+  if (!table) return
+
+  const firstTh = table.querySelector('thead th:nth-child(1)')
+  if (!firstTh) return
+
+  const width = firstTh.offsetWidth
+  document.documentElement.style.setProperty('--col1-width', `${width}px`)
 }
 
 // Added by KL for 20260120

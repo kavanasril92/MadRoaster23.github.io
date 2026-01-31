@@ -1,0 +1,79 @@
+:root {
+  --col1-width: 0px;
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    max-width: 100%;
+    margin: 0.5rem;
+  }
+
+  .datatable-table th,
+  .datatable-table td {
+    /* padding: 0.4rem; */
+    font-size: 0.75rem;
+    text-align: center !important;
+  }
+
+  .datatable-table td {
+    padding: 0.4rem;
+  }
+
+  /* .datatable-table th {
+    padding: 0rem !important;
+  } */
+
+  .btn-tight {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .table-view { display: none; }
+  .card-view { display: block; }
+}
+
+@media (min-width: 769px) {
+  .card-view { display: none; }
+}
+
+.sticky-wrapper {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.datatable-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* First column */
+/* Header */
+.datatable-table th:nth-child(1) {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+}
+
+/* First column */
+/* .datatable-table th:nth-child(1), */
+.datatable-table td:nth-child(1) {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+/* Second column */
+/* Header */
+.datatable-table th:nth-child(2) {
+  position: sticky;
+  left: var(--col1-width);
+  z-index: 4;
+}
+
+/* Second column */
+.datatable-table td:nth-child(2) {
+  position: sticky;
+  left: var(--col1-width);
+  z-index: 2;
+}

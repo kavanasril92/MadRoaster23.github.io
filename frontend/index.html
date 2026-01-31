@@ -9,6 +9,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.21.1/dist/css/coreui.min.css" rel="stylesheet" integrity="sha384-2+YuZykkjNU93bDLKprqcDXxyLpsThLNDEHzM9fMotyiwSsqgea5bLoxyZvfLwKm" crossorigin="anonymous">
 	<!-- Added by KL for 20260120 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"/>
+	<!-- Added by KL on 20260130 -->
+	<link href="var/dist/css/Orders.css" rel="stylesheet">
     <title>Mad Roaster Order Form</title>
   </head>
   <body>
@@ -53,7 +55,10 @@
       </div>
       <div class="modal-body">
 
-			<table id="ordersTable" class="table table-striped table-hover table-bordered"></table>
+			<!-- Modified by KL on 20260130 - Table to be mobile responsive -->
+			<div class="table-responsive sticky-wrapper">
+				<table id="ordersTable" class="table table-striped table-hover table-bordered"></table>
+			</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
