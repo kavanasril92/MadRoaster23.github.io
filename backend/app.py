@@ -57,6 +57,9 @@ FRONTEND_DIR_JS = FRONTEND_DIR / "js"
 FRONTEND_DIR_VAR = FRONTEND_DIR / "var"
 FRONTEND_DIR_CUSTOM = FRONTEND_DIR / "Custom"
 
+## Modified by KL on 20260131 - Build ID for using most updated jQuery file
+BUILD_ID = os.getenv("BUILD_ID", "dev");
+
 # print("CWD:", Path.cwd())
 # print("PROJECT_ROOT:", PROJECT_DIR)
 # print("BACKEND_DIR:", BACKEND_DIR)
@@ -92,7 +95,14 @@ def read_index():
     if not INDEX_FILE.exists():
         return HTMLResponse("Frontend not found", status_code=404)
 
-    return FileResponse(INDEX_FILE)
+    ## Modified by KL on 20260131 - To pass build_id over
+    print(BUILD_ID)
+    html = INDEX_FILE.read_text(encoding="utf-8")
+    html = html.replace("__BUILD_ID__", BUILD_ID)
+    
+    return HTMLResponse(content=html)
+    
+    # return FileResponse(INDEX_FILE)
 
     # return FileResponse(FRONTEND_DIR / "index.html")
 
