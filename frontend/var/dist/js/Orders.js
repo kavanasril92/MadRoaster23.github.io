@@ -820,6 +820,13 @@ function ReorderPopulate(btn) {
 	// Added by KL on 20260129 - Fill Up Calendar according to Reordered order
 	const rawDate = rowObject["Order Date"].trim();
 	var [rawDate_day, rawDate_month, rawDate_year] = rawDate.split('-');
+	// Modified by KL on 20260203 - Rectifying issue where Date is defaulting to 19XX instead of 20XX
+	// If year is 2 digits → force 20xx
+  if (rawDate_year.length === 2) {
+    rawDate_year = 2000 + parseInt(rawDate_year, 10);
+  } else {
+    rawDate_year = parseInt(rawDate_year, 10);
+  }
 	var rawDate_newDate = new Date(rawDate_year, rawDate_month-1, rawDate_day);
 
 	const calEl = document.getElementById('calendar_input');
