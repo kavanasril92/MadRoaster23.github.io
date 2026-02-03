@@ -421,6 +421,11 @@ $( document ).ready(function() {
 					sort: "desc"
 				}
 			],
+			// Modified by KL on 20260203 - Ordered by Order Date, then by Outlet Name
+			order: [
+				[0, 'desc'],
+				[1, 'asc']
+			],
 			labels: {
 				placeholder: "Search Orders...",
 				searchTitle: "Search within table",
