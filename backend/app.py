@@ -9,6 +9,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
 import json
+## Added by KL on 20260302 - Rectify issue where latest Order per outlet is not showing
+from datetime import datetime
 
 app = FastAPI()
 load_dotenv()
@@ -156,6 +158,9 @@ def get_sheet_data():
         orderDate = record["OrderDate"]
         outlet = record["Which outlet are you from?"]
         uniqueIdentifer = record["Unique Identifier"]
+        ## Added by KL on 20260302 - Rectify issue where latest Order per outlet is not showing
+        timestamp = record["Timestamp"]
+        timestamp_dt_obj = datetime.strptime(timestamp.strip(), "%m/%d/%Y %H:%M:%S");
         
         if orderDate not in sheet_data_transformed:
             sheet_data_transformed[orderDate] = {}
@@ -163,7 +168,9 @@ def get_sheet_data():
         if outlet not in sheet_data_transformed[orderDate]:
             sheet_data_transformed[orderDate][outlet] = record
         else:
-            if record["Timestamp"] > sheet_data_transformed[orderDate][outlet]["Timestamp"]:
+            ## Modified by KL on 20260302 - Rectify issue where latest Order per outlet is not showing
+            sheet_timestamp_dt_obj = datetime.strptime(sheet_data_transformed[orderDate][outlet]["Timestamp"].strip(), "%m/%d/%Y %H:%M:%S");
+            if outlet == sheet_data_transformed[orderDate][outlet]['Which outlet are you from?'] and timestamp_dt_obj > sheet_timestamp_dt_obj:
                 sheet_data_transformed[orderDate][outlet] = record
                 
     flatteneddata = []
