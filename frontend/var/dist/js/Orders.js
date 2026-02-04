@@ -407,6 +407,34 @@ $( document ).ready(function() {
 			</tbody>
     `;
 
+		// Modified by KL on 20260205 - Ordered by Order Date, then by Outlet Name
+		const ordertable = document.querySelector("#ordersTable");
+		const ordertbody = ordertable.querySelector("tbody");
+		const orderrows = Array.from(ordertbody.querySelectorAll("tr"));
+
+		orderrows.sort((rowA, rowB) => {
+			// 🔹 Column indexes
+			const DATE_COL = 0;
+			const STRING_COL = 1;
+
+			// ---- 1️⃣ Primary sort: Date DESC ----
+			const dateA = parseDMY(rowA.cells[DATE_COL].innerText);
+			const dateB = parseDMY(rowB.cells[DATE_COL].innerText);
+
+			if (dateA.getTime() !== dateB.getTime()) {
+				return dateB - dateA; // DESC
+			}
+
+			// ---- 2️⃣ Secondary sort: String ASC ----
+			const strA = rowA.cells[STRING_COL].innerText.trim().toLowerCase();
+			const strB = rowB.cells[STRING_COL].innerText.trim().toLowerCase();
+
+			return strA.localeCompare(strB); // ASC
+		});
+
+		// Re-insert rows in sorted order
+		orderrows.forEach(row => ordertbody.appendChild(row));
+
     // initialize DataTable
     dataTable = new simpleDatatables.DataTable(tableEl, {
       searchable: true,
@@ -420,11 +448,6 @@ $( document ).ready(function() {
 					type: "date",
 					sort: "desc"
 				}
-			],
-			// Modified by KL on 20260203 - Ordered by Order Date, then by Outlet Name
-			order: [
-				[0, 'desc'],
-				[1, 'asc']
 			],
 			labels: {
 				placeholder: "Search Orders...",
@@ -1047,6 +1070,17 @@ function updateStickyOffsets() {
 
   const width = firstTh.offsetWidth
   document.documentElement.style.setProperty('--col1-width', `${width}px`)
+}
+
+// Modified by KL on 20260205 - Ordered by Order Date, then by Outlet Name
+function parseDMY(value) {
+  const clean = value.trim();
+  const [dd, mm, yy] = clean.split("-");
+
+  // Convert 2-digit year → 20xx
+  const year = yy.length === 2 ? `20${yy}` : yy;
+
+  return new Date(`${year}-${mm}-${dd}`);
 }
 
 // Added by KL for 20260120
