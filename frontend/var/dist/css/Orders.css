@@ -55,6 +55,10 @@
   .datatable-top .datatable-search {
     flex: 1 1 auto;   /* fill remaining space */
   }
+
+  .datatable-top .datatable-search input {
+    width: 100%
+  }
 }
 
 @media (min-width: 769px) {
