@@ -30,6 +30,31 @@
 
   .table-view { display: none; }
   .card-view { display: block; }
+
+  /* Added by KL on 20260205 */
+  /* Force single-row layout */
+  .datatable-top {
+    display: flex;
+    flex-wrap: nowrap;   /* KEY: prevents wrapping */
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Remove 100% widths that break flex */
+  .datatable-top .datatable-dropdown,
+  .datatable-top .datatable-search {
+    width: auto;
+  }
+
+  /* Control proportions */
+  .datatable-top .datatable-dropdown {
+    flex: 0 0 auto;   /* fixed size */
+  }
+
+  .datatable-top .datatable-search {
+    flex: 1 1 auto;   /* fill remaining space */
+  }
 }
 
 @media (min-width: 769px) {
