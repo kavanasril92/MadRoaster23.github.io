@@ -247,7 +247,12 @@ $( document ).ready(function() {
 	})
 
 	let datatableReady = false
-	let datatableReadyPromise = $.Deferred()
+	// Modified by KL on 20260205 - Resolve Promise issue where Modal Dialog cannot open if pressed too fast
+	// let datatableReadyPromise = $.Deferred()
+	let datatableReadyResolve;
+	const datatableReadyPromise = new Promise(resolve => {
+		datatableReadyResolve = resolve;
+	});
 
 	$("#past-orders-button").on('click',function(e){
 		const btnEl = document.getElementById('past-orders-button')
@@ -486,7 +491,9 @@ $( document ).ready(function() {
 
 		dataTable.on('datatable.init', () => {
 			datatableReady = true
-			datatableReadyPromise.resolve();
+			// Modified by KL on 20260205 - Resolve Promise issue where Modal Dialog cannot open if pressed too fast
+			// datatableReadyPromise.resolve();
+			datatableReadyResolve();
 			const method = 'init';
 			const pg = 1;
 			toggleColumnsMatched(dataTable, method, pg)
