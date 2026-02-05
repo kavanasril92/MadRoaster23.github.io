@@ -680,7 +680,11 @@ function toISONormalize(ts) {
 	 // zero-pad
   m = m.padStart(2, "0");
   d = d.padStart(2, "0");
-  return `${d}-${m}-${y} ${time}`;
+
+	// Modified by KL on 20260205 - Update hour to be padded
+	let [hh, min, sec] = time.split(":");
+  hh = hh.padStart(2, "0");
+  return `${d}-${m}-${y} ${hh}:${min}:${sec}`;
 }
 
 function toggleColumnsByValue(dt, alwaysVisible = []) {
