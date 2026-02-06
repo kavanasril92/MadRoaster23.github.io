@@ -11,6 +11,9 @@ let dataTable;
 let searchText = [];
 let todayFilterActive = false;
 let isApplyingSearch = false;
+let holdTimer = null;
+let repeatTimer = null;
+let speed = 100;
 
 $( document ).ready(function() {
 	$( "#ordersForm" ).on( "submit", function( event ) {
@@ -281,6 +284,17 @@ $( document ).ready(function() {
 	modalStatic1.addEventListener('shown.coreui.modal', function () {
 		dataTable.refresh();
 		updateStickyOffsets();
+	});
+
+	modalStatic1.addEventListener('shown.coreui.modal', function () {
+		$("#modal_date_button").text('Today');
+		$("#modal_date_button").val(formatToday());
+
+		const $btn = $('#modal_date_button');
+
+		$btn.removeClass('active')
+				.attr('aria-pressed', 'false')
+				.blur(); // 🔑 removes sticky hover/focus on mobile
 	});
 
 	fetch("/sheet")
@@ -1174,35 +1188,87 @@ function addTodaySearchButton(dataTable) {
   top.appendChild(wrapper);
 
 	$("#modal_date_button_decrease, #modal_date_button_increase").on('click', function(){
-		const current = $("#modal_date_button").val();
-		const currentDateObj = parseDDMMYYFromModalDate(formatToday());
-		// console.log(current);
-		// console.log(currentDateObj);
-		let newDateObj = ""
-		let dateAddSubtract = 0;
-		if ( $(this)[0].id == "modal_date_button_decrease" ) {
-			dateAddSubtract = -1;
-			newDateObj = parseDDMMYYFromModalDate(changeDate(current, dateAddSubtract));
-		} else if ( $(this)[0].id == "modal_date_button_increase" )  {
-			dateAddSubtract = +1;
-			newDateObj = parseDDMMYYFromModalDate(changeDate(current, dateAddSubtract));
-		}
-		const MS_PER_DAY = 24 * 60 * 60 * 1000;
-		const dateDiff = Math.round((newDateObj - currentDateObj) / MS_PER_DAY);
-		if ( dateDiff == -1 ) {
-			$("#modal_date_button").text('Yesterday');
-		} else if ( dateDiff == 1 ) {
-			$("#modal_date_button").text('Tomorrow');
-		} else if ( dateDiff == 0 ) {
-			$("#modal_date_button").text('Today');
-		}	else {
-			$("#modal_date_button").text(changeDate(current, dateAddSubtract));
-		}
-  	$("#modal_date_button").val(changeDate(current, dateAddSubtract));
-		if ( $("#modal_date_button").hasClass('active') ) {
-			applyCombinedSearch(dataTable);
-		}
+		inc_dec_date($(this)[0].id);
 	});
+
+	// Increase
+	const incBtn = document.getElementById('modal_date_button_increase');
+	const decBtn = document.getElementById('modal_date_button_decrease');
+	
+	incBtn.addEventListener('mousedown', () => {
+		const current = $("#modal_date_button").val();
+		startHold(current, +1);
+	});
+	incBtn.addEventListener('touchstart', (e) => {
+		e.preventDefault();
+		const current = $("#modal_date_button").val();
+		startHold(current, +1);
+	});
+
+	// Decrease
+	decBtn.addEventListener('mousedown', () => {
+		console.log('mousedown');
+		const current = $("#modal_date_button").val();
+		startHold(current, -1);
+	});
+	decBtn.addEventListener('touchstart', (e) => {
+		e.preventDefault();
+		const current = $("#modal_date_button").val();
+		startHold(current, -1);
+	});
+
+	// Stop on release
+	['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(evt => {
+		incBtn.addEventListener(evt, stopHold);
+		decBtn.addEventListener(evt, stopHold);
+	});
+
+	// $("#modal_date_button").on('click', function(){
+	// 	if ( !$(this).hasClass('active') ) {
+	// 		console.log($(this));
+	// 		// console.log($(this));
+	// 		$(this)[0].blur();
+	// 		// Wait for click/toggle logic to complete
+	// 		setTimeout(() => {
+	// 			$(this)[0].blur();   // 🔑 removes focus & hover visuals
+	// 		}, 100);
+	// 	}
+	// });
+
+	document.querySelectorAll('#modal_date_button').forEach(btn => {
+		btn.addEventListener('click', () => {
+			if ( !btn.classList.contains('active') ) {
+				console.log(btn);
+				btn.blur();
+			}
+			// btn.classList.remove('hover-fix');
+			// console.log(btn);
+			
+			// setTimeout(() => {
+			// 	btn.blur(); // removes focus + hover state
+			// }, 300);
+		});
+	});
+
+	document.querySelectorAll('.circle-btn').forEach(btn => {
+		btn.addEventListener('touchend', () => {
+			btn.classList.remove('hover-fix');
+			
+			setTimeout(() => {
+				btn.blur(); // removes focus + hover state
+			}, 300);
+		});
+	});
+
+	// const dateBtn = document.getElementById('modal_date_button');
+
+	// dateBtn.addEventListener('mouseup touchend', () => {
+	// 	console.log("mouseup");
+	// 	// Wait for click/toggle logic to complete
+	// 	setTimeout(() => {
+	// 		dateBtn.blur();   // 🔑 removes focus & hover visuals
+	// 	}, 100);
+	// });
 }
 
 function formatToday() {
@@ -1253,6 +1319,68 @@ function changeDate(currentValue, deltaDays) {
   const date = parseDDMMYYFromModalDate(currentValue);
   date.setDate(date.getDate() + deltaDays);
   return formatDDMMYY(date);
+}
+
+function startHold(currentValue, days) {
+	// 🔔 haptic tap
+  if (navigator.vibrate) {
+    navigator.vibrate(15);
+  }
+
+  // 1️⃣ instant change
+	let inc_dec_val = days == -1 ? 'modal_date_button_decrease' : 'modal_date_button_increase';
+  inc_dec_date(inc_dec_val);
+
+  // 2️⃣ start repeating after delay
+  holdTimer = setTimeout(() => {
+    repeatTimer = setInterval(() => {
+			inc_dec_date(inc_dec_val);
+			speed = Math.max(40, speed - 5);
+
+			// optional light repeat buzz
+      if (navigator.vibrate) {
+        navigator.vibrate(5);
+      }
+		}, speed);		
+  }, 400); // delay before repeat
+	speed = 100;
+}
+
+function stopHold() {
+  clearTimeout(holdTimer);
+  clearInterval(repeatTimer);
+  holdTimer = repeatTimer = null;
+}
+
+function inc_dec_date( containerid ){
+	const current = $("#modal_date_button").val();
+	const currentDateObj = parseDDMMYYFromModalDate(formatToday());
+	// console.log(current);
+	// console.log(currentDateObj);
+	let newDateObj = ""
+	let dateAddSubtract = 0;
+	if ( containerid == "modal_date_button_decrease" ) {
+		dateAddSubtract = -1;
+		newDateObj = parseDDMMYYFromModalDate(changeDate(current, dateAddSubtract));
+	} else if ( containerid == "modal_date_button_increase" )  {
+		dateAddSubtract = +1;
+		newDateObj = parseDDMMYYFromModalDate(changeDate(current, dateAddSubtract));
+	}
+	const MS_PER_DAY = 24 * 60 * 60 * 1000;
+	const dateDiff = Math.round((newDateObj - currentDateObj) / MS_PER_DAY);
+	if ( dateDiff == -1 ) {
+		$("#modal_date_button").text('Yesterday');
+	} else if ( dateDiff == 1 ) {
+		$("#modal_date_button").text('Tomorrow');
+	} else if ( dateDiff == 0 ) {
+		$("#modal_date_button").text('Today');
+	}	else {
+		$("#modal_date_button").text(changeDate(current, dateAddSubtract));
+	}
+	$("#modal_date_button").val(changeDate(current, dateAddSubtract));
+	if ( $("#modal_date_button").hasClass('active') ) {
+		applyCombinedSearch(dataTable);
+	}
 }
 
 // Added by KL for 20260120

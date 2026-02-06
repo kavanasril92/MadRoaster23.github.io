@@ -147,6 +147,11 @@
   }
 }
 
+.btn-today:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
 .circle-btn {
   height: 35px;
   width: 35px;
@@ -159,6 +164,16 @@
   font-size: 0.85rem;
   border-radius: 999px; /* pill look */
   transition: padding 0.2s ease, font-size 0.2s ease;
+  user-select: none;
+}
+
+.circle-btn:focus {
+  outline: none;
+}
+
+.circle-btn:active {
+  transform: scale(0.95);
+  background-color: #dee2e6;
 }
 
 /* Tablet and up */
@@ -175,4 +190,23 @@
     padding: 1.2rem 1.2rem;
     font-size: 1rem;
   }
+}
+
+@media (hover: hover) {
+  .btn-today:not(.active):hover {
+    background-color: inherit !important;
+    box-shadow: none !important;
+  }
+}
+
+.btn-today:not(.active):hover {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+.btn-today:focus:not(.active),
+.btn-today:focus-visible:not(.active) {
+  background-color: inherit;
+  box-shadow: none;
+  outline: none;
 }
