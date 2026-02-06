@@ -102,6 +102,7 @@
 
 /* Control proportions */
 .datatable-top .datatable-dropdown {
+  display: flex;
   flex: 1 1 0;   /* fixed size */
 }
 
