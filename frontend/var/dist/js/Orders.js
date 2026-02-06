@@ -1238,7 +1238,7 @@ function addTodaySearchButton(dataTable) {
 	document.querySelectorAll('#modal_date_button').forEach(btn => {
 		btn.addEventListener('click', () => {
 			if ( !btn.classList.contains('active') ) {
-				console.log(btn);
+				// console.log(btn);
 				btn.blur();
 			}
 			// btn.classList.remove('hover-fix');
@@ -1329,7 +1329,7 @@ function startHold(currentValue, days) {
 
   // 1️⃣ instant change
 	let inc_dec_val = days == -1 ? 'modal_date_button_decrease' : 'modal_date_button_increase';
-  inc_dec_date(inc_dec_val);
+  // inc_dec_date(inc_dec_val);
 
   // 2️⃣ start repeating after delay
   holdTimer = setTimeout(() => {
@@ -1341,9 +1341,11 @@ function startHold(currentValue, days) {
       if (navigator.vibrate) {
         navigator.vibrate(5);
       }
-		}, speed);		
+		}, speed);	
+	speed = 100;
   }, 400); // delay before repeat
 	speed = 100;
+
 }
 
 function stopHold() {
