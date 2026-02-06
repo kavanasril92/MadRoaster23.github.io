@@ -30,35 +30,6 @@
 
   .table-view { display: none; }
   .card-view { display: block; }
-
-  /* Added by KL on 20260205 */
-  /* Force single-row layout */
-  .datatable-top {
-    display: flex;
-    flex-wrap: nowrap;   /* KEY: prevents wrapping */
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  /* Remove 100% widths that break flex */
-  .datatable-top .datatable-dropdown,
-  .datatable-top .datatable-search {
-    width: auto;
-  }
-
-  /* Control proportions */
-  .datatable-top .datatable-dropdown {
-    flex: 0 0 auto;   /* fixed size */
-  }
-
-  .datatable-top .datatable-search {
-    flex: 1 1 auto;   /* fill remaining space */
-  }
-
-  .datatable-top .datatable-search input {
-    width: 100%
-  }
 }
 
 @media (min-width: 769px) {
@@ -105,4 +76,103 @@
   position: sticky;
   left: var(--col1-width);
   z-index: 2;
+}
+
+/* Added by KL on 20260205 - Add button for searching by Date */
+/* Push the button to the far right */
+.datatable-top .btn-today {
+  margin-left: auto;
+}
+
+/* Added by KL on 20260205 */
+/* Force single-row layout */
+.datatable-top {
+  display: flex;
+  flex-wrap: wrap;   /* KEY: prevents wrapping */
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Remove 100% widths that break flex */
+.datatable-top .datatable-dropdown,
+.datatable-top .datatable-search {
+  width: auto;
+}
+
+/* Control proportions */
+.datatable-top .datatable-dropdown {
+  flex: 1 1 0;   /* fixed size */
+}
+
+.datatable-top .datatable-search {
+  flex: 1 1 0;   /* fill remaining space */
+}
+
+.datatable-top .datatable-search input {
+  width: 100%
+}
+
+.datatable-top .date-actions {
+  flex: 0 0 100%;           /* full width → new row */
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+/* Base (mobile-first) */
+.datatable-top .date-actions .btn-today {
+  margin-left: 0;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: 999px; /* pill look */
+  transition: padding 0.2s ease, font-size 0.2s ease;
+}
+
+/* Tablet and up */
+@media (min-width: 576px) {
+  .datatable-top .date-actions .btn-today {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop */ 
+@media (min-width: 992px) {
+  .datatable-top .date-actions .btn-today {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+.circle-btn {
+  height: 35px;
+  width: 35px;
+  /* border-radius: 50%; */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  padding: 0.4rem 0.4rem;
+  font-size: 0.85rem;
+  border-radius: 999px; /* pill look */
+  transition: padding 0.2s ease, font-size 0.2s ease;
+}
+
+/* Tablet and up */
+@media (min-width: 576px) {
+  .datatable-top .date-actions .circle-btn {
+    padding: 0.8rem 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop */ 
+@media (min-width: 992px) {
+  .datatable-top .date-actions .circle-btn {
+    padding: 1.2rem 1.2rem;
+    font-size: 1rem;
+  }
 }

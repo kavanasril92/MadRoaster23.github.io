@@ -7,6 +7,10 @@ var yyyy;
 var mm;
 var dd;
 let dataTable;
+// Modified by KL for 20260205 - Search by Date Button + Search Filter
+let searchText = [];
+let todayFilterActive = false;
+let isApplyingSearch = false;
 
 $( document ).ready(function() {
 	$( "#ordersForm" ).on( "submit", function( event ) {
@@ -253,7 +257,7 @@ $( document ).ready(function() {
 	const datatableReadyPromise = new Promise(resolve => {
 		datatableReadyResolve = resolve;
 	});
-
+	
 	$("#past-orders-button").on('click',function(e){
 		const btnEl = document.getElementById('past-orders-button')
 		let btn = coreui.LoadingButton.getInstance(btnEl);
@@ -298,7 +302,7 @@ $( document ).ready(function() {
 		]);
 
 		const visibleKeys = remainingColumns.filter(k => !IGNORE_COLUMNS.has(k));
-
+		
 		// Modified by KL on 20260130 - Order the Datatable to the input form
 		// Get the order of input label in the form
 		let orderInputOrder = [];
@@ -321,8 +325,9 @@ $( document ).ready(function() {
 					orderInputOrder.push("CB Bottle (Pieces)");
 				}
 			}
+			
 		});
-		
+
 		const keyArray = [
 			...orderInputOrder,
 			...visibleKeys.filter(x => !orderInputOrder.includes(x))
@@ -411,7 +416,7 @@ $( document ).ready(function() {
 				`).join("")}
 			</tbody>
     `;
-
+		
 		// Modified by KL on 20260205 - Ordered by Order Date, then by Outlet Name
 		const ordertable = document.querySelector("#ordersTable");
 		const ordertbody = ordertable.querySelector("tbody");
@@ -452,7 +457,7 @@ $( document ).ready(function() {
 					select: orderDateIndex,
 					type: "date",
 					sort: "desc"
-				}
+				},
 			],
 			labels: {
 				placeholder: "Search Orders...",
@@ -465,12 +470,36 @@ $( document ).ready(function() {
 				noResults: "No orders match your search query",
 			},
 			// hiddenHeader: true,
-
-
     });
 
 		dataTable.on('datatable.search', function(query, matched) {
 			
+		});
+
+		// Modified by KL for 20260205 - Search by Date Button + Search Filter
+		// console.log(dataTable);
+		dataTable.on('datatable.multisearch', function(query, matched) {
+			let searchTermsString = [];
+			if ( query.length > 0 ) {
+				let searchTerms = query[0].terms;
+				searchTerms.forEach(termVal => {
+					searchTermsString.push(termVal);
+				})
+			}
+
+			const method = 'multisearch';
+			const pg = 1;
+			toggleColumnsMatched(dataTable, method, pg)
+			updateStickyOffsets();
+			if (isApplyingSearch) {
+				isApplyingSearch = false;
+				return
+			}
+			searchText = [...searchTermsString];
+  		applyCombinedSearch(dataTable);
+
+			toggleColumnsMatched(dataTable, method, pg)
+			updateStickyOffsets();
 		});
 
 		dataTable.on('datatable.update', function(e) {
@@ -499,8 +528,10 @@ $( document ).ready(function() {
 			toggleColumnsMatched(dataTable, method, pg)
 			// Modified by KL on 20260130 - Sticky 2 Columns
 			updateStickyOffsets();
+			// Added by KL on 20260205 - Add button for searching by Date
+			addTodaySearchButton(dataTable);
 		})
-
+		
 		// Modified by KL on 20260130 - Sticky 2 Columns
 		updateStickyOffsets();
 
@@ -875,11 +906,12 @@ function ReorderPopulate(btn) {
 	if ( rawDate_newDate >= cal_mindate ) {
 		final_date = rawDate_newDate
 	}
+
 	cal._calendarDate = final_date;
 	cal._updateCalendar();
 
 	$('#calendar_input').find('[data-coreui-date="' + final_date + '"]').trigger('click');
-	
+
 	// Fill Up Outlet Option first
 	const $tbody = $('#order-table tbody');
 	$tbody.empty(); // clear table first
@@ -1092,6 +1124,135 @@ function parseDMY(value) {
   const year = yy.length === 2 ? `20${yy}` : yy;
 
   return new Date(`${year}-${mm}-${dd}`);
+}
+
+// Added by KL on 20260205 - Add button for searching by Date
+function addTodaySearchButton(dataTable) {
+	// console.log(dataTable);
+  const top = dataTable.wrapperDOM.querySelector(".datatable-top");
+  if (!top) return;
+
+  // Avoid duplicate button
+  if (top.querySelector(".btn-today")) return;
+
+	const wrapper = document.createElement("div");
+  wrapper.className = "date-actions";
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "btn btn-outline-light btn-sm rounded-pill btn-today";
+	btn.setAttribute("data-coreui-toggle", "button");
+  btn.textContent = "Today";
+	btn.id = "modal_date_button";
+	btn.value = formatToday();
+	coreui.Button.getOrCreateInstance(btn);
+
+  btn.addEventListener("click", () => {
+		todayFilterActive = !todayFilterActive;
+		applyCombinedSearch(dataTable);
+  });
+
+	const iconbuttondown = document.createElement("button");
+	iconbuttondown.type = "button";
+  iconbuttondown.className = "btn btn-outline-light btn-sm rounded-pill circle-btn";
+	const icondown = document.createElement("i");
+	icondown.classList.add("fa-solid", "fa-angle-down");
+	iconbuttondown.id = "modal_date_button_decrease";
+	iconbuttondown.appendChild(icondown);
+
+	const iconbuttonup = document.createElement("button");
+	iconbuttonup.type = "button";
+  iconbuttonup.className = "btn btn-outline-light btn-sm rounded-pill circle-btn";
+	const iconup = document.createElement("i");
+	iconup.classList.add("fa-solid", "fa-angle-up");
+	iconbuttonup.id = "modal_date_button_increase";
+	iconbuttonup.appendChild(iconup);
+
+  wrapper.appendChild(iconbuttondown);
+  wrapper.appendChild(btn);
+	wrapper.appendChild(iconbuttonup)
+  top.appendChild(wrapper);
+
+	$("#modal_date_button_decrease, #modal_date_button_increase").on('click', function(){
+		const current = $("#modal_date_button").val();
+		const currentDateObj = parseDDMMYYFromModalDate(formatToday());
+		// console.log(current);
+		// console.log(currentDateObj);
+		let newDateObj = ""
+		let dateAddSubtract = 0;
+		if ( $(this)[0].id == "modal_date_button_decrease" ) {
+			dateAddSubtract = -1;
+			newDateObj = parseDDMMYYFromModalDate(changeDate(current, dateAddSubtract));
+		} else if ( $(this)[0].id == "modal_date_button_increase" )  {
+			dateAddSubtract = +1;
+			newDateObj = parseDDMMYYFromModalDate(changeDate(current, dateAddSubtract));
+		}
+		const MS_PER_DAY = 24 * 60 * 60 * 1000;
+		const dateDiff = Math.round((newDateObj - currentDateObj) / MS_PER_DAY);
+		if ( dateDiff == -1 ) {
+			$("#modal_date_button").text('Yesterday');
+		} else if ( dateDiff == 1 ) {
+			$("#modal_date_button").text('Tomorrow');
+		} else if ( dateDiff == 0 ) {
+			$("#modal_date_button").text('Today');
+		}	else {
+			$("#modal_date_button").text(changeDate(current, dateAddSubtract));
+		}
+  	$("#modal_date_button").val(changeDate(current, dateAddSubtract));
+		if ( $("#modal_date_button").hasClass('active') ) {
+			applyCombinedSearch(dataTable);
+		}
+	});
+}
+
+function formatToday() {
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const yy = String(d.getFullYear()).slice(-2);
+
+  return `${dd}-${mm}-${yy}`;
+}
+
+// Modified by KL for 20260205 - Search by Date Button + Search Filter
+function applyCombinedSearch(dataTable) {
+	if (isApplyingSearch) return;
+	isApplyingSearch = true;
+  let query = [...searchText];
+	
+	let $modal_date_button = $("#modal_date_button")
+	let modal_date_button_active = $modal_date_button.hasClass('active');
+	if ( modal_date_button_active ) {
+		let modal_date_button_value = $modal_date_button.val();
+		const dateValue = modal_date_button_value; // DD-MM-YY
+		query.push(dateValue);
+	}
+
+  dataTable.multiSearch([{terms:query, columns:undefined}]);
+	isApplyingSearch = false;
+}
+
+function parseDDMMYYFromModalDate(dateStr) {
+  const [dd, mm, yy] = dateStr.split("-").map(Number);
+
+  // assume 20xx (adjust if needed)
+  const yyyy = yy < 100 ? 2000 + yy : yy;
+
+  return new Date(yyyy, mm - 1, dd);
+}
+
+function formatDDMMYY(dateObj) {
+  const dd = String(dateObj.getDate()).padStart(2, "0");
+  const mm = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const yy = String(dateObj.getFullYear()).slice(-2);
+
+  return `${dd}-${mm}-${yy}`;
+}
+
+function changeDate(currentValue, deltaDays) {
+  const date = parseDDMMYYFromModalDate(currentValue);
+  date.setDate(date.getDate() + deltaDays);
+  return formatDDMMYY(date);
 }
 
 // Added by KL for 20260120
