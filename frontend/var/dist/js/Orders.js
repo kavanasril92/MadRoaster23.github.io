@@ -591,8 +591,9 @@ $( document ).ready(function() {
 			const row = `
 					<tr>
 							<td style="font-weight: 100;font-size: medium;">${rowNum}</td>
-							<td style="font-weight: 100;font-size: medium;">${labelText}</td>
+							<td style="font-weight: 100;font-size: medium;" class="order-label-item">${labelText}</td>
 							<td style="font-weight: 100;font-size: medium;">${inputVal}</td>
+							<td style="font-weight: 100;font-size: medium;"><button type="button" class="btn btn-ghost-secondary" style="padding-top:0px; padding-bottom:0px; padding-left:6px; padding-right:6px; font-size:small" onclick="RemoveOrderItem(this)">X</button></td>
 					</tr>
 			`;
 			rowNum++;
@@ -1402,6 +1403,22 @@ function inc_dec_date( containerid ){
 	if ( $("#modal_date_button").hasClass('active') ) {
 		applyCombinedSearch(dataTable);
 	}
+}
+
+function RemoveOrderItem(btn) {
+	const orderItem = $(btn).closest('tr').find('td.order-label-item').text().trim();
+
+	$('#accordionFlushExample label').each(function () {
+    const $label = $(this);
+    if ($label.text().trim() === orderItem) {
+      const forId = $label.attr('for');
+      if (forId) {
+				const $inputDiv = $(`#accordionFlushExample input[id="${forId}"]`);
+				$inputDiv.val('').trigger('change');
+        // $('#' + forId).val('').trigger('change');
+      }
+    }
+  });
 }
 
 // Added by KL for 20260120
