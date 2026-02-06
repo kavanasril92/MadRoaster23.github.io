@@ -10,7 +10,14 @@
 	<!-- Added by KL for 20260120 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"/>
 	<!-- Added by KL on 20260130 -->
-	<link href="var/dist/css/Orders.css" rel="stylesheet">
+	<!-- ## Modified by KL on 20260206 - Only for Dev to pass timestamp -->
+	<link href="var/dist/css/Orders.css?v=__BUILD_ID__" rel="stylesheet">
+	<!-- Added by KL on 20260207 - Add Fontawesome locally -->
+	<link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet" />
+  <link href="assets/fontawesome/css/brands.css" rel="stylesheet" />
+  <link href="assets/fontawesome/css/solid.css" rel="stylesheet" />
+  <link href="assets/fontawesome/css/sharp-thin.css" rel="stylesheet" />
+  <link href="assets/fontawesome/css/sharp-duotone-thin.css" rel="stylesheet" />
     <title>Mad Roaster Order Form</title>
   </head>
   <body>
@@ -1214,6 +1221,9 @@
 					<!-- Added by KL for 20260120 - Summary of Order -->
 					 <div id="order-summary" style="display:none; font-size: 20px;font-weight: bold;" >
 							<span>ORDER SUMMARY</span>
+							<!-- Modified by KL on 20260206 - Add Date on Cart -->
+							 <span id="order-summary-date-span"></span>
+
 							<hr class="my-4" style="background-color: black; height: 4px; border: none;">
 							<table class="table table-hover" id="order-table">
 								<thead>
@@ -1290,6 +1300,6 @@
 	<script src="https://apis.google.com/js/api.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" defer></script>
 	<!-- Added by KL on 20260203 - Search icon to fast populate Order ID -->
-	<script src="https://kit.fontawesome.com/fb96f82310.js" crossorigin="anonymous"></script>
+	<!-- <script src="https://kit.fontawesome.com/fb96f82310.js" crossorigin="anonymous"></script> -->
   </body>
 </html>
