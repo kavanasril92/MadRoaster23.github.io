@@ -14,6 +14,7 @@ let isApplyingSearch = false;
 let holdTimer = null;
 let repeatTimer = null;
 let speed = 100;
+let started = false;
 
 $( document ).ready(function() {
 	$( "#ordersForm" ).on( "submit", function( event ) {
@@ -1188,7 +1189,7 @@ function addTodaySearchButton(dataTable) {
   top.appendChild(wrapper);
 
 	$("#modal_date_button_decrease, #modal_date_button_increase").on('click', function(){
-		inc_dec_date($(this)[0].id);
+		// inc_dec_date($(this)[0].id);
 	});
 
 	// Increase
@@ -1322,6 +1323,9 @@ function changeDate(currentValue, deltaDays) {
 }
 
 function startHold(currentValue, days) {
+	if (started) return;
+  started = true;
+
 	// 🔔 haptic tap
   if (navigator.vibrate) {
     navigator.vibrate(15);
@@ -1329,28 +1333,30 @@ function startHold(currentValue, days) {
 
   // 1️⃣ instant change
 	let inc_dec_val = days == -1 ? 'modal_date_button_decrease' : 'modal_date_button_increase';
-  // inc_dec_date(inc_dec_val);
+  inc_dec_date(inc_dec_val);
 
   // 2️⃣ start repeating after delay
   holdTimer = setTimeout(() => {
     repeatTimer = setInterval(() => {
 			inc_dec_date(inc_dec_val);
-			speed = Math.max(40, speed - 5);
+			speed = Math.max(20, speed - 5);
 
 			// optional light repeat buzz
       if (navigator.vibrate) {
         navigator.vibrate(5);
       }
 		}, speed);	
-	speed = 100;
+	// speed = 100;
   }, 400); // delay before repeat
-	speed = 100;
+	// speed = 100;
 
 }
 
 function stopHold() {
   clearTimeout(holdTimer);
   clearInterval(repeatTimer);
+	speed = 100;
+	started = false;
   holdTimer = repeatTimer = null;
 }
 
