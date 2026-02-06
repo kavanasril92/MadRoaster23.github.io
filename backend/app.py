@@ -11,6 +11,8 @@ import pandas as pd
 import json
 ## Added by KL on 20260302 - Rectify issue where latest Order per outlet is not showing
 from datetime import datetime
+## Modified by KL on 20260206 - Only for Localhost (Dev) to pass timestamp
+from time import time
 
 app = FastAPI()
 load_dotenv()
@@ -98,9 +100,13 @@ def read_index():
         return HTMLResponse("Frontend not found", status_code=404)
 
     ## Modified by KL on 20260131 - To pass build_id over
-    print(BUILD_ID)
+    ## Modified by KL on 20260206 - Only for Localhost (Dev) to pass timestamp
+    build_id = BUILD_ID
+    if build_id == 'dev':
+        build_id = str(int(time()))
+    print(build_id)
     html = INDEX_FILE.read_text(encoding="utf-8")
-    html = html.replace("__BUILD_ID__", BUILD_ID)
+    html = html.replace("__BUILD_ID__", build_id)
     
     return HTMLResponse(content=html)
     
