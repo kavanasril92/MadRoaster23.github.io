@@ -538,6 +538,11 @@ $( document ).ready(function() {
 			// Modified by KL on 20260205 - Resolve Promise issue where Modal Dialog cannot open if pressed too fast
 			// datatableReadyPromise.resolve();
 			datatableReadyResolve();
+
+			// ✅ ENABLE BUTTON HERE
+			viewOrdersBtn.innerText = 'View All Orders';
+  		viewOrdersBtn.disabled = false;
+
 			const method = 'init';
 			const pg = 1;
 			toggleColumnsMatched(dataTable, method, pg)
@@ -621,6 +626,14 @@ $( document ).ready(function() {
 		// 	value: $input.val()
 		// });
 	})
+
+	const viewOrdersBtn = document.getElementById('past-orders-button');
+
+	// Disable immediately
+	viewOrdersBtn.disabled = true;
+
+	// If using CoreUI LoadingButton
+	const viewOrdersLoadingBtn = coreui.LoadingButton.getOrCreateInstance(viewOrdersBtn);
 
 });
 
