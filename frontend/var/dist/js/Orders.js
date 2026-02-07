@@ -59,6 +59,9 @@ $( document ).ready(function() {
 	// Modified by KL 20251227 - Update to 2 days later for inventory
 	var dayArray = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 	$("#Tomorrows-Date").text("Order for " + date + " " + monthArray[month] + " " + year + " (" + dayArray[d.getDay()] +")");
+	// Modified by KL on 20260207 - Add Date to Order Cart
+	$("#order-summary-date-span").text(date + " " + monthArray[month] + " " + year);
+	$("#order-summary-date-span").css('font-weight', 'lighter')
 	
 	$(".outlet-select").on("change", function( event ) {
 	  // Modified by KL for 20231212 - Added Courtyard
@@ -212,6 +215,9 @@ $( document ).ready(function() {
 		const selectedYear = d.getFullYear();
 
 		$("#Tomorrows-Date").text("Order for " + selectedDate + " " + monthArray[selectedMonth] + " " + selectedYear + " (" + dayArray[selectedDay] +")");
+		// Modified by KL on 20260207 - Add Date to Order Cart
+		$("#order-summary-date-span").text(selectedDate + " " + monthArray[selectedMonth] + " " + selectedYear);
+	$("#order-summary-date-span").css('font-weight', 'lighter')
 
 		var newDate = new Date(selectedYear, selectedMonth, selectedDate);
 
