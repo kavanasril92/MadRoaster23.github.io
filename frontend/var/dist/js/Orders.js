@@ -428,6 +428,14 @@ $( document ).ready(function() {
 										<button type="button" class="btn btn-light rounded-pill btn-tight" onclick="ReorderPopulate(this)"><span class="cil-contrast"></span>Reorder</button>
 									</td>
 								`;
+							} 
+
+							if ( k === "Order ID" ) {
+								return `
+									<td style="text-align:center; white-space:nowrap" value="${value}">
+										${value}<i class="fa-solid fa-magnifying-glass" style="cursor:pointer" onclick="SearchOrderID(this)"></i>
+									</td>
+								`;
 							}
 
 							// default cell
@@ -1425,6 +1433,15 @@ function RemoveOrderItem(btn) {
       }
     }
   });
+}
+
+function SearchOrderID(btn){
+	const tdval = btn.closest('td').textContent.trim();
+	if ( tdval !== "" ) {
+		$(".datatable-input").val(tdval);
+		dataTable.search(tdval);
+	} 
+	// console.log(td.textContent.trim());
 }
 
 // Added by KL for 20260120
