@@ -232,6 +232,7 @@ app.add_middleware(
     TrustedHostMiddleware,
     allowed_hosts=["*"]
 )
+@app.middleware("http")
 async def no_cache_static(request, call_next):
     response = await call_next(request)
     if request.url.path.endswith(".js"):
