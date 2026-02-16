@@ -13,6 +13,7 @@ import json
 from datetime import datetime
 ## Modified by KL on 20260206 - Only for Localhost (Dev) to pass timestamp
 from time import time
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 
 app = FastAPI()
 load_dotenv()
@@ -227,7 +228,10 @@ def health():
     return {"status": "ok"}
 
 ## Added by KL on 20260131 - To remove caching of JS file when deploying on Koyeb
-@app.middleware("http")
+app.add_middleware(
+    TrustedHostMiddleware,
+    allowed_hosts=["*"]
+)
 async def no_cache_static(request, call_next):
     response = await call_next(request)
     if request.url.path.endswith(".js"):
