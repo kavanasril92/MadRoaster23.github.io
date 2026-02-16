@@ -10,5 +10,4 @@ COPY frontend /app/frontend
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["sh", "-c", "export BUILD_ID=$(date +%s) && uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]
-
+CMD ["sh", "-c", "export BUILD_ID=$(date +%s) && uvicorn app:app --host 0.0.0.0 --port", "8000"]
