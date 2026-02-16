@@ -117,39 +117,50 @@ def read_index():
 
 @app.get("/sheet")
 def get_sheet_data():
-    gcred_json = {
-        "type": "service_account",
-        "project_id": googleprivatekeyid,
-        "private_key_id": googleprivatekeyid,
-        "private_key": googleprivatekey,
-        "client_email": googleclientemail,
-        "client_id": googleclientid,
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": googleclientx509certurl,
-        "universe_domain": "googleapis.com"
-    }
-    
-    gcred_json["private_key"] = gcred_json["private_key"].replace("\\n", "\n")
-    
-    # Scope for Google Sheets
-    # SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-    SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-    
-    # Open sheet by name or URL
-    # sheet = google_client.open("Your Google Sheet Name").sheet1
-    # OR: client.open_by_url("https://docs.google.com/...")
-    google_creds = Credentials.from_service_account_info(
-        gcred_json,
-        scopes=SCOPES
-    )
-    
-    google_client = gspread.authorize(google_creds)
-    
-    sheet = google_client.open_by_url(googlesheetmr)
-    worksheet = sheet.worksheet("Order Database")
-    rows = worksheet.get_all_values()
+    try:
+        gcred_json = {
+            "type": "service_account",
+            "project_id": googleprivatekeyid,
+            "private_key_id": googleprivatekeyid,
+            "private_key": googleprivatekey,
+            "client_email": googleclientemail,
+            "client_id": googleclientid,
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "client_x509_cert_url": googleclientx509certurl,
+            "universe_domain": "googleapis.com"
+        }
+        
+        gcred_json["private_key"] = gcred_json["private_key"].replace("\\n", "\n")
+        
+        # Scope for Google Sheets
+        # SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+        SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+        
+        print("Creating credentials...")
+        # Open sheet by name or URL
+        # sheet = google_client.open("Your Google Sheet Name").sheet1
+        # OR: client.open_by_url("https://docs.google.com/...")
+        google_creds = Credentials.from_service_account_info(
+            gcred_json,
+            scopes=SCOPES
+        )
+        
+        print("Authorizing gspread client...")
+        google_client = gspread.authorize(google_creds)
+        
+        print("Opening Google Sheet...")
+        sheet = google_client.open_by_url(googlesheetmr)
+        worksheet = sheet.worksheet("Order Database")
+        
+        print("Fetching all values...")
+        rows = worksheet.get_all_values()
+    except Exception as e:
+        print(f"ERROR in get_sheet_data: {type(e).__name__}: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return {"error": f"{type(e).__name__}: {str(e)}"}
     raw_headers = rows[0]
     headers = make_headers_unique(raw_headers)
     
