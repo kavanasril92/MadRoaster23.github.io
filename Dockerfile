@@ -10,4 +10,4 @@ COPY frontend /app/frontend
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["sh", "-c", "export BUILD_ID=$(date +%s) && uvicorn app:app --host 0.0.0.0 --port $PORT --proxy-headers"]
+CMD ["sh", "-c", "PORT=$PORT && export BUILD_ID=$(date +%s) && uvicorn app:app --host 0.0.0.0 --port $PORT --proxy-headers"]
