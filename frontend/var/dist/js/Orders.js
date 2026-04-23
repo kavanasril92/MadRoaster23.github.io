@@ -99,6 +99,40 @@ $( document ).ready(function() {
 		*/
 	  // Added by KL 20251227
 		var outlet_selection = $(this).val();
+		// Added by KL on 20260423 - Add Logic for EV
+		if ( outlet_selection == 'EV' ) {
+			$(".non-ev-item-class").val('').trigger('change');
+			$(".non-ev-item-class").prop('disabled', true);
+			$(".ev-item-class").prop('disabled', false);
+			$("#non_ev_items").delay(100).fadeOut();
+			$("#non_ev_items").find('input').val('').trigger('change');
+			$("#ev_items").delay(100).fadeIn();
+
+			// Move the EV Items to Baked Goods
+			$(".ev-shared-item").appendTo(".to-append-here-baked-goods");
+			$('.ev-shared-item').find('input').val('').trigger('change');
+
+			// Hide non-EV accordions
+			$(".dry-stock-accordion, .chiller-stock-accordion, .sandwiches-accordion, .miscellaneous-accordion").delay(100).fadeOut();
+			$(".dry-stock-accordion, .chiller-stock-accordion, .sandwiches-accordion, .miscellaneous-accordion").find('input').val('').trigger('change');
+
+		} else {
+			$(".ev-item-class").val('').trigger('change');
+			$(".ev-item-class").prop('disabled', true);
+			$(".non-ev-item-class").prop('disabled', false);
+			$("#non_ev_items").delay(100).fadeIn();
+			$("#ev_items").delay(100).fadeOut();
+			$("#ev_items").find('input').val('').trigger('change');
+
+			// Move the EV Items to Freezer Stock
+			$(".ev-shared-item").appendTo(".to-append-here-freezer-stock");
+			$('.ev-shared-item').find('input').val('').trigger('change');
+
+			// Show non-EV accordions
+			$(".dry-stock-accordion, .chiller-stock-accordion, .sandwiches-accordion, .miscellaneous-accordion").delay(100).fadeIn();
+
+		}
+
 	  $("." + outlet_selection + "-ONLY-DIV").delay(100).fadeIn();
 		$("." + outlet_selection + "-ONLY").delay(100).fadeIn();
 	  $('.outlet-select option').each(function (index) {
@@ -893,6 +927,9 @@ function toggleColumnsMatched ( dt, method, pg ) {
 }
 
 function ReorderPopulate(btn) {
+	// Added by KL on 20260423 - Add Logic for EV
+	$(".outlet-select").trigger('change');
+
 	// console.log(index);
 	// console.log(dataTable);
 	// dataTable.data.data[index]

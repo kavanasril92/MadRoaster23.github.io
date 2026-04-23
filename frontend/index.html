@@ -122,6 +122,8 @@
 				  <!-- Added by KL 20251227 - Update Date for Copyright ID -->
 				  <option value="Courtyard">Courtyard</option>
 				  <option value="Depot">Depot</option>
+					<!-- Added by KL 20260423 - Update EV -->
+					 <option value="EV">EV</option>
 				  <!-- Commented by KL 20251227 - Update Date for Copyright ID -->
 				  <!-- <option value="RWS">RWS</option> -->
 					<!-- Updated by KL on 20231212 - Added Courtyard Option -->
@@ -147,68 +149,103 @@
 					<div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 						<div class="col-sm-12">
 							<div class="accordion-body">
-							  <label for="entry.1758873703" class="form-label">Pretty Chocolate Babka</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1758873703" id="entry.1758873703" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
+								<!-- Modified by KL on 20260423 - EV has its own section of Baked Goods -->
+								<!-- Added by KL on 20260423 - New Items - Chocolate Babka & Cinnamon -->
+								<label for="entry.1340269805" class="form-label">Chocolate Babka</label>
+								<input type="number" pattern="\d*" class="form-control" name="entry.1340269805" id="entry.1340269805" placeholder="" value="" required="" min="0">
+								<div class="invalid-feedback">
 								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.1363682761" class="form-label">Ugly Chocolate Babka</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1363682761" id="entry.1363682761" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.993762943" class="form-label">Pretty Cinnamon</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.993762943" id="entry.993762943" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.1381355876" class="form-label">Ugly Cinnamon</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1381355876" id="entry.1381355876" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.195263013" class="form-label">Cookies</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.195263013" id="entry.195263013" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
-							  
-							  </br>
-							  
-							  <label for="entry.1800802716" class="form-label">Laminated</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1800802716" id="entry.1800802716" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
+								</div>
 
-							  <!-- Modified by KL 20251227 - Update new item --> 
-							  </br>
-							  <label for="entry.1992307831" class="form-label">Scones</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1992307831" id="entry.1992307831" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
+								</br>
 
-							  </br>
-
-							  <!-- Modified by KL 20251227 - Update new item --> 
-							  <label for="entry.816616430" class="form-label">Cereal (Packet)</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.816616430" id="entry.816616430" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
+								<label for="entry.1357002139" class="form-label">Cinammon</label>
+								<input type="number" pattern="\d*" class="form-control" name="entry.1357002139" id="entry.1357002139" placeholder="" value="" required="" min="0">
+								<div class="invalid-feedback">
 								Valid value is required.
-							  </div>
+								</div>
+
+								</br>
+								<div id="ev_items">
+									<div class="to-append-here-baked-goods">
+										
+									</div>
+
+									<label for="entry.1176549438" class="form-label">Almond Brioche</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.1176549438" id="entry.1176549438" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+
+									</br>
+								</div>
+								<div id="non_ev_items">
+									<!-- Commented by KL on 20260423 - To update to Chocolate Babka & Cinnamon -->
+									<!--
+									<label for="entry.1758873703" class="form-label">Pretty Chocolate Babka</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.1758873703" id="entry.1758873703" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+									
+									</br>
+									
+									<label for="entry.1363682761" class="form-label">Ugly Chocolate Babka</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.1363682761" id="entry.1363682761" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+									
+									</br>
+									
+									<label for="entry.993762943" class="form-label">Pretty Cinnamon</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.993762943" id="entry.993762943" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+									
+									</br>
+									
+									<label for="entry.1381355876" class="form-label">Ugly Cinnamon</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.1381355876" id="entry.1381355876" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+									
+									</br>
+									-->
+									
+									<label for="entry.195263013" class="form-label">Cookies</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.195263013" id="entry.195263013" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+									
+									</br>
+									
+									<label for="entry.1800802716" class="form-label">Laminated</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.1800802716" id="entry.1800802716" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+
+									<!-- Modified by KL 20251227 - Update new item --> 
+									</br>
+									<label for="entry.1992307831" class="form-label">Scones</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.1992307831" id="entry.1992307831" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+
+									</br>
+
+									<!-- Modified by KL 20251227 - Update new item --> 
+									<label for="entry.816616430" class="form-label">Cereal (Packet)</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.816616430" id="entry.816616430" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+								</div>
 							  
 							</div>
 						</div>
@@ -216,7 +253,8 @@
 				  </div>
 
 				  <!-- Modified by KL 20251227 - Added Items -->
-				  <div class="accordion-item">
+					<!-- Modified by KL 20260423 - Update EV -->
+				  <div class="accordion-item sandwiches-accordion">
 					<h2 class="accordion-header">
 					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
 						<div class="accordion-custom-div"><b>Sandwiches</b></div>
@@ -224,6 +262,24 @@
 					</h2>
 					<div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 					  <div class="accordion-body">
+								<!-- Modified by KL on 20260423 - Update OG (Pieces) & Kimchi (Pieces) -->
+
+								<label for="entry.934277697" class="form-label">OG (Pieces)</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.934277697" id="entry.934277697" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+
+							  </br>
+
+							  <label for="entry.1673167020" class="form-label">Kimchi (Pieces)</label>
+							  <input type="number" pattern="\d*" class="form-control" name="entry.1673167020" id="entry.1673167020" placeholder="" value="" required="" min="0">
+							  <div class="invalid-feedback">
+								Valid value is required.
+							  </div>
+
+								<!-- Commented by KL on 20260423 -->
+								<!--
 							  <label for="entry.507121160" class="form-label">OG (Loaf)</label>
 							  <input type="number" pattern="\d*" class="form-control" name="entry.507121160" id="entry.507121160" placeholder="" value="" required="" min="0">
 							  <div class="invalid-feedback">
@@ -233,16 +289,18 @@
 							  </br>
 
 							  <label for="entry.473704296" class="form-label">Kimchi (Loaf)</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.473704296" id="entry.473704296" placeholder="" value="" required="" min="0">
+							  <input type="number" pattern="\d*" class="form-control" name="entry.1673167020" id="entry.473704296" placeholder="" value="" required="" min="0">
 							  <div class="invalid-feedback">
 								Valid value is required.
 							  </div>
+								-->
 					  </div>
 					</div>
 				  </div>
 
 				  <!-- Modified by KL 20251227 - Added Items -->
-				  <div class="accordion-item">
+					<!-- Modified by KL 20260423 - Update EV -->
+				  <div class="accordion-item chiller-stock-accordion">
 					<h2 class="accordion-header">
 					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
 						<div class="accordion-custom-div"><b>Chiller Stock</b></div>
@@ -387,21 +445,27 @@
 
 							  </br>
 
-							  <label for="entry.600928113" class="form-label">Cookie Nutella</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.600928113" id="entry.600928113" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
+								<!-- Modified by KL on 20260423 - Disable this when EV is selected -->
+								<div class="to-append-here-freezer-stock">
+									<div class="ev-shared-item">
+										<label for="entry.600928113" class="form-label">Cookie Nutella</label>
+										<input type="number" pattern="\d*" class="form-control" name="entry.600928113" id="entry.600928113" placeholder="" value="" required="" min="0">
+										<div class="invalid-feedback">
+										Valid value is required.
+										</div>
 
-							  </br>
+										</br>
 
-							  <label for="entry.1527436877" class="form-label">Cookie Matcha</label>
-							  <input type="number" pattern="\d*" class="form-control" name="entry.1527436877" id="entry.1527436877" placeholder="" value="" required="" min="0">
-							  <div class="invalid-feedback">
-								Valid value is required.
-							  </div>
+										<!-- Modified by KL on 20260423 - Disable this when EV is selected -->
+										<label for="entry.1527436877" class="form-label">Cookie Matcha</label>
+										<input type="number" pattern="\d*" class="form-control" name="entry.1527436877" id="entry.1527436877" placeholder="" value="" required="" min="0">
+										<div class="invalid-feedback">
+										Valid value is required.
+										</div>
 
-							  </br>
+										</br>
+									</div>
+								</div>
 
 							  <label for="entry.278558762" class="form-label">Strawberry Jam (Packet)</label>
 							  <input type="number" pattern="\d*" class="form-control" name="entry.278558762" id="entry.278558762" placeholder="" value="" required="" min="0">
@@ -413,7 +477,8 @@
 				  </div>
 
 				  <!-- Modified by KL 20251227 - Added Items -->
-				  <div class="accordion-item">
+					<!-- Modified by KL 20260423 - Update EV -->
+				  <div class="accordion-item dry-stock-accordion">
 					<h2 class="accordion-header">
 					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
 						<div class="accordion-custom-div"><b>Dry Stock</b></div>
@@ -616,7 +681,8 @@
 				  </div>
 
 				  <!-- Modified by KL 20251227 - Added Items -->
-				  <div class="accordion-item">
+					<!-- Modified by KL 20260423 - Update EV -->
+				  <div class="accordion-item miscellaneous-accordion">
 					<h2 class="accordion-header">
 					  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
 						<div class="accordion-custom-div"><b>Miscellaneous</b></div>
