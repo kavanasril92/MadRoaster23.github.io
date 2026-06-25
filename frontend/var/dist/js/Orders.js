@@ -132,7 +132,7 @@ $( document ).ready(function() {
 			$(".dry-stock-accordion, .chiller-stock-accordion, .sandwiches-accordion, .miscellaneous-accordion").delay(100).fadeIn();
 
 		}
-
+		
 	  $("." + outlet_selection + "-ONLY-DIV").delay(100).fadeIn();
 		$("." + outlet_selection + "-ONLY").delay(100).fadeIn();
 	  $('.outlet-select option').each(function (index) {
@@ -355,6 +355,7 @@ $( document ).ready(function() {
 			"Outlet Data",
 			"Unique Identifier",
 			"Which outlet are you from? ",
+			"Comments", // Modified by KL on 20260625 - Pin Comments as last column
 		]);
 
 		const visibleKeys = remainingColumns.filter(k => !IGNORE_COLUMNS.has(k));
@@ -390,7 +391,8 @@ $( document ).ready(function() {
 		]
 
 		// New ordered keys
-		const finalkeys = [...firstColumns, ...keyArray];
+		// Modified by KL on 20260625 - Append Comments as last column
+		const finalkeys = [...firstColumns, ...keyArray, ...(keys.includes("Comments") ? ["Comments"] : [])];
 
 		// const headers = [...new Set(data.flatMap(Object.keys))];
 		const timestampIndex = finalkeys.indexOf("Timestamp");
@@ -635,7 +637,9 @@ $( document ).ready(function() {
 			}
 			
 			// skip empty rows
-			if (!labelText || !inputVal) return;
+			if (!labelText || !inputVal || $input.prop('disabled')) return;
+
+			console.log(labelText + ": " + inputVal + " - " + $input.prop('disabled'));
 
 			const row = `
 					<tr>
@@ -684,7 +688,6 @@ $( document ).ready(function() {
 
 	// If using CoreUI LoadingButton
 	const viewOrdersLoadingBtn = coreui.LoadingButton.getOrCreateInstance(viewOrdersBtn);
-
 });
 
 function initializeCalendar (calendarName, dateVar) {
