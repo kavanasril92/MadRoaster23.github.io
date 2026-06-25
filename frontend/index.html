@@ -129,6 +129,8 @@
 					<!-- Updated by KL on 20231212 - Added Courtyard Option -->
 				  <!-- Added by KL 20251227 - Update Date for Copyright ID -->
 				  <option value="HTX">HTX</option>
+				  <!-- Added by KL on 20260625 -->
+				  <option value="NEC">NEC</option>
 				  <option value="NHCS">NHCS</option>
 				  <option value="NTU">NTU</option>
 				</select>
@@ -225,8 +227,20 @@
 									</br>
 									-->
 									
+									<!-- Commented by KL on 20260625 -->
+									<!--
 									<label for="entry.195263013" class="form-label">Cookies</label>
 									<input type="number" pattern="\d*" class="form-control" name="entry.195263013" id="entry.195263013" placeholder="" value="" required="" min="0">
+									<div class="invalid-feedback">
+									Valid value is required.
+									</div>
+									
+									</br>
+									-->
+
+									<!-- Added by KL on 20260625 -->
+									<label for="entry.476843414" class="form-label">Nutella-Stuffed Cookie</label>
+									<input type="number" pattern="\d*" class="form-control" name="entry.476843414" id="entry.476843414" placeholder="" value="" required="" min="0">
 									<div class="invalid-feedback">
 									Valid value is required.
 									</div>
@@ -333,7 +347,8 @@
 							  </div>
 
 							  <!-- ONLY FOR NTU -->
-							  <div class="NTU-ONLY-DIV" style="display:none">
+							  <!-- Modified by KL on 20260625 -->
+							  <div class="NTU-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.160135225" class="form-label">Macadamia Praline (Packet)</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.160135225" id="entry.160135225" placeholder="" value="" required="" min="0">
@@ -358,7 +373,8 @@
 								Valid value is required.
 							  </div>
 
-							  <div class="NHCS-ONLY-DIV Courtyard-ONLY-DIV" style="display:none">
+							  <!-- Modified by KL on 20260625 -->
+							  <div class="NHCS-ONLY-DIV Courtyard-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.1071403740" class="form-label">Butter KG</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.1071403740" id="entry.1071403740" placeholder="" value="" required="" min="0">
@@ -399,7 +415,8 @@
 								Valid value is required.
 							  </div>
 
-							  <div class="Depot-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV" style="display:none">
+							  <!-- Modified by KL on 20260625 -->
+							  <div class="Depot-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.2107447273" class="form-label">Avocado</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.2107447273" id="entry.2107447273" placeholder="" value="" required="" min="0">
@@ -408,7 +425,8 @@
 								</div>
 							  </div>
 
-							  <div class="HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV" style="display:none">
+							  <!-- Modified by KL on 20260625 -->
+							  <div class="HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.1803673698" class="form-label">Calamansi</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.1803673698" id="entry.1803673698" placeholder="" value="" required="" min="0">
@@ -417,7 +435,8 @@
 								</div>
 							  </div>
 
-							  <div class="HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV" style="display:none">
+							  <!-- Modified by KL on 20260625 -->
+							  <div class="HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.1676772614" class="form-label">Coriander</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.1676772614" id="entry.1676772614" placeholder="" value="" required="" min="0">
@@ -431,7 +450,8 @@
 
 				  <!-- Modified by KL 20251227 - Added Items -->
 				  <!-- NHCS / CY / DEPOT / NTU ONLY -->
-				  <div class="accordion-item NHCS-ONLY Courtyard-ONLY Depot-ONLY NTU-ONLY" style="display:none">
+				  <!-- Modified by KL on 20260625 -->
+				  <div class="accordion-item NHCS-ONLY Courtyard-ONLY Depot-ONLY NTU-ONLY NEC-ONLY" style="display:none">
 					<h2 class="accordion-header">
 					  <button id="flush-collapseTenFreezer" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
 						<div class="accordion-custom-div"><b>Freezer Stock</b></div>
@@ -450,6 +470,8 @@
 								<!-- Modified by KL on 20260423 - Disable this when EV is selected -->
 								<div class="to-append-here-freezer-stock">
 									<div class="ev-shared-item">
+										<!-- Commented by KL on 20260625 -->
+										<!--
 										<label for="entry.600928113" class="form-label">Cookie Nutella</label>
 										<input type="number" pattern="\d*" class="form-control" name="entry.600928113" id="entry.600928113" placeholder="" value="" required="" min="0">
 										<div class="invalid-feedback">
@@ -457,10 +479,32 @@
 										</div>
 
 										</br>
+										-->
 
 										<!-- Modified by KL on 20260423 - Disable this when EV is selected -->
+										<!-- Commented by KL on 20260625 -->
+										<!--
 										<label for="entry.1527436877" class="form-label">Cookie Matcha</label>
 										<input type="number" pattern="\d*" class="form-control" name="entry.1527436877" id="entry.1527436877" placeholder="" value="" required="" min="0">
+										<div class="invalid-feedback">
+										Valid value is required.
+										</div>
+
+										</br>
+										-->
+
+										<!-- Added by KL on 20260625 -->
+										<label for="entry.507047670" class="form-label">Frozen Nutella Ball</label>
+										<input type="number" pattern="\d*" class="form-control" name="entry.507047670" id="entry.507047670" placeholder="" value="" required="" min="0">
+										<div class="invalid-feedback">
+										Valid value is required.
+										</div>
+
+										</br>
+
+										<!-- Added by KL on 20260625 -->
+										<label for="entry.1016655461" class="form-label">Frozen Matcha Ball</label>
+										<input type="number" pattern="\d*" class="form-control" name="entry.1016655461" id="entry.1016655461" placeholder="" value="" required="" min="0">
 										<div class="invalid-feedback">
 										Valid value is required.
 										</div>
@@ -583,7 +627,8 @@
 								Valid value is required.
 							  </div>
 
-							  <div class="Amoy-ONLY-DIV NHCS-ONLY-DIV" style="display:none">
+							  <!-- Modified by KL on 20260625 -->
+							  <div class="Amoy-ONLY-DIV NHCS-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.477258574" class="form-label">Oatmilk</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.477258574" id="entry.477258574" placeholder="" value="" required="" min="0">
@@ -592,6 +637,8 @@
 								</div>
 							  </div>
 
+							  <!-- Commented by KL 20260625 -->
+							  <!--
 							  <div class="Courtyard-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.5998588" class="form-label">Granola</label>
@@ -600,6 +647,7 @@
 									Valid value is required.
 								</div>
 							  </div>
+							  -->
 
 							  <div class="Courtyard-ONLY-DIV" style="display:none">
 								</br>
@@ -722,7 +770,8 @@
 								Valid value is required.
 							  </div>
 
-							  <div class="Amoy-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV" style="display:none">
+							  <!-- Modified by KL on 20260625 -->
+							  <div class="Amoy-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.591157038" class="form-label">Printer Roll</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.591157038" id="entry.591157038" placeholder="" value="" required="" min="0">
@@ -732,7 +781,8 @@
 							  </div>
 
 								<!-- Modified by KL 20260105 - Added Items -->
-								<div class="Courtyard-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV" style="display:none">
+								 <!-- Modified by KL on 20260625 -->
+								<div class="Courtyard-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.462491870" class="form-label">Dishwashing Liquid</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.462491870" id="entry.462491870" placeholder="" value="" required="" min="0">
@@ -741,7 +791,8 @@
 								</div>
 							  </div>
 
-								<div class="Courtyard-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV" style="display:none">
+							  	<!-- Modified by KL on 20260625 -->
+								<div class="Courtyard-ONLY-DIV HTX-ONLY-DIV NHCS-ONLY-DIV NTU-ONLY-DIV NEC-ONLY-DIV" style="display:none">
 								</br>
 								<label for="entry.490244424" class="form-label">Floor Cleansing Liquid</label>
 								<input type="number" pattern="\d*" class="form-control" name="entry.490244424" id="entry.490244424" placeholder="" value="" required="" min="0">

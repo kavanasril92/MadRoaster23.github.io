@@ -346,7 +346,8 @@ $( document ).ready(function() {
 
 		// Define the order you want
 		// Modified by KL on 20260130 - Order the Datatable to the input form
-		const firstColumns = ["OrderDate", "Which outlet are you from?","Reorder", "Order ID", "Timestamp"]; // columns to appear first
+		// Modified by KL on 20260625 - Ordering the Datatable with Chocolate Babka, Pretty Cinnamon, Ugly Cinnamon, Laminated, Nutella-Stuffed Cookie, Scones
+		const firstColumns = ["OrderDate", "Which outlet are you from?","Reorder", "Order ID", "Timestamp", "Chocolate Babka", "Pretty Cinnamon", "Ugly Cinnamon", "Laminated", "Nutella-Stuffed Cookie", "Scones"]; // columns to appear first
 		const remainingColumns = keys.filter(k => !firstColumns.includes(k));
 
 		const IGNORE_COLUMNS = new Set([
