@@ -103,6 +103,8 @@ $( document ).ready(function() {
 		if ( outlet_selection == 'EV' ) {
 			$(".non-ev-item-class").val('').trigger('change');
 			$(".non-ev-item-class").prop('disabled', true);
+			// Added by KL on 20260708
+			$(".non-ev-item-hide").hide();
 			$(".ev-item-class").prop('disabled', false);
 			$("#non_ev_items").delay(100).fadeOut();
 			$("#non_ev_items").find('input').val('').trigger('change');
@@ -119,6 +121,8 @@ $( document ).ready(function() {
 		} else {
 			$(".ev-item-class").val('').trigger('change');
 			$(".ev-item-class").prop('disabled', true);
+			// Added by KL on 20260708
+			$(".non-ev-item-hide").show();
 			$(".non-ev-item-class").prop('disabled', false);
 			$("#non_ev_items").delay(100).fadeIn();
 			$("#ev_items").delay(100).fadeOut();
@@ -132,7 +136,7 @@ $( document ).ready(function() {
 			$(".dry-stock-accordion, .chiller-stock-accordion, .sandwiches-accordion, .miscellaneous-accordion").delay(100).fadeIn();
 
 		}
-		
+
 	  $("." + outlet_selection + "-ONLY-DIV").delay(100).fadeIn();
 		$("." + outlet_selection + "-ONLY").delay(100).fadeIn();
 	  $('.outlet-select option').each(function (index) {
@@ -347,7 +351,8 @@ $( document ).ready(function() {
 		// Define the order you want
 		// Modified by KL on 20260130 - Order the Datatable to the input form
 		// Modified by KL on 20260625 - Ordering the Datatable with Chocolate Babka, Pretty Cinnamon, Ugly Cinnamon, Laminated, Nutella-Stuffed Cookie, Scones
-		const firstColumns = ["OrderDate", "Which outlet are you from?","Reorder", "Order ID", "Timestamp", "Chocolate Babka", "Pretty Cinnamon", "Ugly Cinnamon", "Laminated", "Nutella-Stuffed Cookie", "Scones"]; // columns to appear first
+		// Modified by KL on 20260708
+		const firstColumns = ["OrderDate", "Which outlet are you from?","Reorder", "Order ID", "Timestamp", "Chocolate Babka", "Pretty Cinnamon", "Ugly Cinnamon", "Laminated", "Nutella-Stuffed Cookie", "Scones","Cinnamon"]; // columns to appear first
 		const remainingColumns = keys.filter(k => !firstColumns.includes(k));
 
 		const IGNORE_COLUMNS = new Set([
@@ -637,9 +642,7 @@ $( document ).ready(function() {
 			}
 			
 			// skip empty rows
-			if (!labelText || !inputVal || $input.prop('disabled')) return;
-
-			console.log(labelText + ": " + inputVal + " - " + $input.prop('disabled'));
+			if (!labelText || !inputVal) return;
 
 			const row = `
 					<tr>
@@ -688,6 +691,7 @@ $( document ).ready(function() {
 
 	// If using CoreUI LoadingButton
 	const viewOrdersLoadingBtn = coreui.LoadingButton.getOrCreateInstance(viewOrdersBtn);
+
 });
 
 function initializeCalendar (calendarName, dateVar) {
