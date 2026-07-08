@@ -103,6 +103,8 @@ $( document ).ready(function() {
 		if ( outlet_selection == 'EV' ) {
 			$(".non-ev-item-class").val('').trigger('change');
 			$(".non-ev-item-class").prop('disabled', true);
+			$(".ev-item-class").show();
+			$(".ev-item-class").find('input').prop('disabled', false);
 			// Added by KL on 20260708
 			$(".non-ev-item-hide").hide();
 			$(".ev-item-class").prop('disabled', false);
@@ -121,6 +123,9 @@ $( document ).ready(function() {
 		} else {
 			$(".ev-item-class").val('').trigger('change');
 			$(".ev-item-class").prop('disabled', true);
+			$(".ev-item-class").hide();
+			$(".ev-item-class").find('input').val('').trigger('change');
+			$(".ev-item-class").find('input').prop('disabled', true);
 			// Added by KL on 20260708
 			$(".non-ev-item-hide").show();
 			$(".non-ev-item-class").prop('disabled', false);
