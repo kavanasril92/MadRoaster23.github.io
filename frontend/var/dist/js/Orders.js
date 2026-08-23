@@ -165,6 +165,24 @@ $( document ).ready(function() {
 				// }
 			}
 		});
+
+		// Added by KL on 20260823 - To show Freezer Stock Strawberry Jam (Packet) for Amoy & Catapult
+		if ( $(".outlet-select").val() == "Amoy" || $(".outlet-select").val() == "Catapult" ) {
+			$("#freezer_stock").delay(100).fadeIn();
+			$("#freezer_stock").find("input, label, br").hide();
+			// $("#freezer_stock label").hide();
+			// $("#freezer_stock div").hide();
+
+			const $label = $('label').filter(function () {
+				return $.trim($(this).text()) === 'Strawberry Jam (Packet)';
+			});
+
+			const $input = $label.next('input');
+			$label.show();
+			$input.show();
+		} else {
+			$("#freezer_stock").find("input, label, br").show();
+		}
 	});
 	
 	// Updated by KL on 20231212 - Changed from Small Orders to Start Order 
