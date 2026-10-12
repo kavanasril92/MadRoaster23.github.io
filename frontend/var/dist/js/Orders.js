@@ -183,6 +183,14 @@ $( document ).ready(function() {
 		} else {
 			$("#freezer_stock").find("input, label, br").show();
 		}
+
+		// Added by KL on 20261012 - To hide Frozen Matcha Ball for Depot
+		if ( $(".outlet-select").val() == "Depot" ) {
+			$(".DEPOT-HIDE").delay(100).fadeOut();
+			$(".DEPOT-HIDE").find('input').val('').trigger('change');
+		} else {
+			$(".DEPOT-HIDE").delay(100).fadeIn();
+		}
 	});
 	
 	// Updated by KL on 20231212 - Changed from Small Orders to Start Order 
